@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import LoginFrom from '../components/LoginFrom';
+import LoginImage from '../images/login.png';
+
+import { Flex } from 'antd';
 
 const StyledLoginLayout = styled.div`
   display: grid;
@@ -19,10 +22,19 @@ const StyledRight = styled.div`
   margin: 3rem;
 `;
 
+const boxStyle = {
+  width: '100%',
+  height: '100%',
+};
+
 const LoginPage = () => {
   return (
     <StyledLoginLayout>
-      <StyledLeft></StyledLeft>
+      <StyledLeft>
+        <Flex style={boxStyle} justify={'center'} align={'center'}>
+          <img src={LoginImage} alt='BigCo Inc. logo' />
+        </Flex>
+      </StyledLeft>
       <StyledRight>
         <LoginFrom></LoginFrom>
       </StyledRight>

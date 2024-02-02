@@ -11,7 +11,8 @@ const onFinishFailed = (errorInfo) => {
 const LoginFrom = () => {
   return (
     <div>
-      <h2>LoginFrom</h2>
+      <h2>Welcome to Schedule Management! 👋🏻</h2>
+      <h4>Please sign-in to your account and start the schedule management</h4>
       <Form
         name='basic'
         layout='vertical'
@@ -20,12 +21,11 @@ const LoginFrom = () => {
         autoComplete='off'
       >
         <Form.Item
-          label='Email'
           name='email'
           rules={[
             {
               required: true,
-              message: 'Please input your email!',
+              message: '이메일을 입력해주세요.',
             },
           ]}
         >
@@ -33,12 +33,11 @@ const LoginFrom = () => {
         </Form.Item>
 
         <Form.Item
-          label='Password'
           name='password'
           rules={[
             {
               required: true,
-              message: 'Please input your password!',
+              message: '비밀번호를 입력해주세요.',
             },
           ]}
         >
