@@ -1,14 +1,39 @@
 import React from 'react';
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button, Switch, Flex } from 'antd';
+import { LoginOutlined, SunOutlined, MoonOutlined } from '@ant-design/icons';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-const onFinish = (values) => {
-  console.log('Success:', values);
-};
-const onFinishFailed = (errorInfo) => {
-  console.log('Failed:', errorInfo);
-};
+import { useSelector, useDispatch } from 'react-redux';
+import { changeMode } from '../store/modules/common';
 
 const LoginFrom = () => {
+  const isThemeMode = useSelector(({ common }) => common.isThemeMode);
+  const dispatch = useDispatch();
+
+  const onSwitchChangeMode = (checked) => {
+    dispatch(changeMode());
+  };
+
+  const onFinish = (values) => {
+    console.log('Success:', values);
+  };
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
+
+  const StyledInputHader = styled.div`
+    color: #adb0cb;
+  `;
+
+  const StyledLink = styled.div`
+    color: #7466f1;
+  `;
+
+  const StyledLinkRightMargin = styled.div`
+    margin-right: 1rem;
+  `;
+
   return (
     <div>
       <h2>Welcome to Schedule Management! 👋🏻</h2>
@@ -20,40 +45,77 @@ const LoginFrom = () => {
         onFinishFailed={onFinishFailed}
         autoComplete='off'
       >
+        <StyledInputHader>Emial</StyledInputHader>
         <Form.Item
           name='email'
           rules={[
             {
               required: true,
-              message: '이메일을 입력해주세요.',
+              message: 'Please enter your e-mail.',
+            },
+            {
+              type: 'email',
+              message: 'Please enter a valid email address.',
             },
           ]}
         >
           <Input />
         </Form.Item>
 
+        <StyledInputHader>Password</StyledInputHader>
         <Form.Item
           name='password'
           rules={[
             {
               required: true,
-              message: '비밀번호를 입력해주세요.',
+              message: 'Please enter a password.',
+            },
+            {
+              min: 6,
+              message: 'Password must be at least 6 characters long.',
             },
           ]}
         >
           <Input.Password />
         </Form.Item>
 
-        <Form.Item name='remember' valuePropName='checked'>
-          <Checkbox>Remember me</Checkbox>
-        </Form.Item>
+        <Flex justify={'space-between'}>
+          <Switch
+            checkedChildren={<SunOutlined />}
+            unCheckedChildren={<MoonOutlined />}
+            checked={isThemeMode}
+            onChange={onSwitchChangeMode}
+            style={{ backgroundColor: isThemeMode ? '#7466f1' : '#25293d' }}
+          />
+          <Link to='/main'>
+            <StyledLink>Forgot Password?</StyledLink>
+          </Link>
+        </Flex>
 
         <Form.Item>
-          <Button type='primary' htmlType='submit'>
-            Submit
+          <Button
+            htmlType='submit'
+            icon={<LoginOutlined></LoginOutlined>}
+            block
+            style={{
+              backgroundColor: '#7466f1',
+              color: '#ffffff',
+              marginTop: '1rem',
+              marginBottom: '1rem',
+              border: 0,
+            }}
+          >
+            Login
           </Button>
         </Form.Item>
       </Form>
+
+      <Flex justify={'center'}>
+        <StyledLinkRightMargin>New on our platform?</StyledLinkRightMargin>
+        <Link to='/main'>
+          <StyledLink>Create an account</StyledLink>
+        </Link>
+      </Flex>
     </div>
   );
 };

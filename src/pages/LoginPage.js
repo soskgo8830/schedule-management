@@ -32,7 +32,7 @@ const LoginPage = () => {
     <StyledLoginLayout>
       <StyledLeft>
         <Flex style={boxStyle} justify={'center'} align={'center'}>
-          <img src={LoginImage} alt='BigCo Inc. logo' />
+          <img src={LoginImage} alt='loginImg' />
         </Flex>
       </StyledLeft>
       <StyledRight>
