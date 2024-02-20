@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { changeMode } from '../store/modules/common';
+import LogoImage from '../images/logo.png';
 
 const LoginFrom = () => {
   const isThemeMode = useSelector(({ common }) => common.isThemeMode);
@@ -34,8 +35,16 @@ const LoginFrom = () => {
     margin-right: 1rem;
   `;
 
+  const boxStyle = {
+    width: '50%',
+    'border-radius': '5px',
+    backgroundColor: '#2f3249',
+  };
+
   return (
     <div>
+      <img src={LogoImage} alt='loginImg' style={boxStyle} />
+
       <h2>Welcome to Schedule Management! 👋🏻</h2>
       <h4>Please sign-in to your account and start the schedule management</h4>
       <Form
@@ -83,7 +92,7 @@ const LoginFrom = () => {
           <Switch
             checkedChildren={<SunOutlined />}
             unCheckedChildren={<MoonOutlined />}
-            checked={isThemeMode}
+            checked={!isThemeMode}
             onChange={onSwitchChangeMode}
             style={{ backgroundColor: isThemeMode ? '#7466f1' : '#25293d' }}
           />
