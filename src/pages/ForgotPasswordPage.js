@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import LoginFrom from '../components/LoginFrom';
+import ForgotPasswordFrom from '../components/ForgotPasswordFrom';
 import LoginImage from '../images/login.png';
 
 import { useSelector } from 'react-redux';
@@ -29,7 +29,7 @@ const ForgotPasswordPage = () => {
         </Flex>
       </StyledLeft>
       <div className='login-right'>
-        <LoginFrom></LoginFrom>
+        <ForgotPasswordFrom></ForgotPasswordFrom>
       </div>
     </StyledLoginLayout>
   );

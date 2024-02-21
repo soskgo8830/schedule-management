@@ -10,7 +10,7 @@ export const changeMode = () => {
 
 // reducer
 const initialState = {
-  isThemeMode: false,
+  isThemeMode: true,
 };
 
 export default function reducer(state = initialState, action) {

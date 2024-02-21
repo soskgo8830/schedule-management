@@ -1,0 +1,18 @@
+.form-input-header {
+  color: #adb0cb;
+}
+
+.login-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  height: 100vh;
+}
+
+.login-left {
+  margin: 2rem;
+  border-radius: 1rem;
+}
+
+.login-right {
+  margin: 3rem;
+}
