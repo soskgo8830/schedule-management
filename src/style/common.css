@@ -1,7 +1,10 @@
+/* input Start */
 .form-input-header {
   color: #adb0cb;
 }
+/* input End */
 
+/* login Start */
 .login-layout {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -16,3 +19,17 @@
 .login-right {
   margin: 3rem;
 }
+/* login End */
+
+/* margin padding Start */
+.margin-right-sm {
+  margin-right: 0.5rem;
+}
+/* margin padding End */
+
+/* common Start */
+.link {
+  color: #7466f1;
+}
+
+/* common End */

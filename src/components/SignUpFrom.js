@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import LogoImage from '../images/logo.png';
 import ModeChangeSwitch from './ModeChageSwitch';
 
-const LoginFrom = () => {
+const SignUpFrom = () => {
   const onFinish = (values) => {
     console.log('Success:', values);
   };
@@ -24,8 +24,8 @@ const LoginFrom = () => {
         }}
       />
 
-      <h2>Welcome to Schedule Management! 👋🏻</h2>
-      <h4>Please sign-in to your account and start the schedule management</h4>
+      <h2>Do you want to sign up for membership? 🚀</h2>
+      <h4>Start managing your schedule easily and with fun</h4>
       <Form
         name='basic'
         layout='vertical'
@@ -33,6 +33,19 @@ const LoginFrom = () => {
         onFinishFailed={onFinishFailed}
         autoComplete='off'
       >
+        <div className='form-input-header'>Name</div>
+        <Form.Item
+          name='name'
+          rules={[
+            {
+              required: true,
+              message: 'Please enter your username.',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
         <div className='form-input-header'>Email</div>
         <Form.Item
           name='email'
@@ -67,11 +80,25 @@ const LoginFrom = () => {
           <Input.Password />
         </Form.Item>
 
+        <div className='form-input-header'>Password Check</div>
+        <Form.Item
+          name='passwordCheck'
+          rules={[
+            {
+              required: true,
+              message: 'Please enter a password again.',
+            },
+            {
+              min: 6,
+              message: 'Password must be at least 6 characters long.',
+            },
+          ]}
+        >
+          <Input.Password />
+        </Form.Item>
+
         <Flex justify={'space-between'}>
           <ModeChangeSwitch></ModeChangeSwitch>
-          <Link to='/forgot-password'>
-            <div className='link'>Forgot Password?</div>
-          </Link>
         </Flex>
 
         <Form.Item>
@@ -86,19 +113,19 @@ const LoginFrom = () => {
               border: 0,
             }}
           >
-            Login
+            Sign up
           </Button>
         </Form.Item>
       </Form>
 
       <Flex justify={'center'}>
-        <div className='margin-right-sm'>New on our platform?</div>
-        <Link to='/sign-up'>
-          <div className='link'>Create an account</div>
+        <div className='margin-right-sm'>Already have an account?</div>
+        <Link to='/'>
+          <div className='link'>Sign in instead</div>
         </Link>
       </Flex>
     </div>
   );
 };
 
-export default LoginFrom;
+export default SignUpFrom;
