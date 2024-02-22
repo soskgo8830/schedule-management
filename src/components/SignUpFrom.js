@@ -19,7 +19,7 @@ const SignUpFrom = () => {
         alt='loginImg'
         style={{
           width: '50%',
-          'border-radius': '5px',
+          borderRadius: '5px',
           backgroundColor: '#2f3249',
         }}
       />

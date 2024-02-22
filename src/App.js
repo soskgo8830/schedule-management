@@ -5,7 +5,13 @@ import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import SignUpPage from './pages/SignUpPage';
 import MainPage from './pages/MainPage';
 
+import { firestore } from './firebase.js';
+import { useEffect } from 'react';
+
 function App() {
+  useEffect(() => {
+    console.log(firestore);
+  });
   return (
     <BrowserRouter>
       <Routes>
