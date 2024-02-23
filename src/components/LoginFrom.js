@@ -1,27 +1,34 @@
-import React from 'react';
-import { Form, Input, Button, Flex } from 'antd';
+import React, { useState } from 'react';
+import { Form, Input, Button, Flex, Alert } from 'antd';
 import { Link } from 'react-router-dom';
 import LogoImage from '../images/logo.png';
 import ModeChangeSwitch from './ModeChageSwitch';
 import { get } from '../api/index';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { login } from '../store/modules/common';
 
 const LoginFrom = () => {
+  const [passLogin, setPassLogin] = useState(true);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const onFinish = async (values) => {
     const { email, password } = values;
     try {
       const response = await get(`users?email=${email}&password=${password}`);
 
       if (response.length === 0) {
-        console.log('해당 회원 정보 없음.');
+        setPassLogin(false);
       } else {
-        console.log('성공');
+        const { email, id, name } = response[0];
+        dispatch(login({ email, id, name }));
+        setPassLogin(true);
+        navigate('/main');
       }
     } catch (error) {
-      console.error('Login failed:', error);
+      setPassLogin(false);
     }
-  };
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
   };
 
   return (
@@ -35,14 +42,26 @@ const LoginFrom = () => {
           backgroundColor: '#2f3249',
         }}
       />
-
       <h2>Welcome to Schedule Management! 👋🏻</h2>
       <h4>Please sign-in to your account and start the schedule management</h4>
+      <div>
+        {!passLogin ? (
+          <Alert
+            message='Error'
+            description='There is no member information. Please enter again.'
+            type='error'
+            showIcon
+            className='maring-bottom-sm'
+          ></Alert>
+        ) : (
+          <div></div>
+        )}
+      </div>
+
       <Form
         name='basic'
         layout='vertical'
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         autoComplete='off'
       >
         <div className='form-input-header'>Email</div>
@@ -102,7 +121,6 @@ const LoginFrom = () => {
           </Button>
         </Form.Item>
       </Form>
-
       <Flex justify={'center'}>
         <div className='margin-right-sm'>New on our platform?</div>
         <Link to='/sign-up'>
