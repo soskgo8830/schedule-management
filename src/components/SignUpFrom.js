@@ -4,18 +4,22 @@ import { Link } from 'react-router-dom';
 import LogoImage from '../images/logo.png';
 import ModeChangeSwitch from './ModeChageSwitch';
 
-import axios from 'axios';
+import { post } from '../api/index';
+import { useNavigate } from 'react-router-dom';
 
 const SignUpFrom = () => {
+  let navigate = useNavigate();
+
   const onFinish = async (values) => {
     const { name, email, password } = values;
 
     try {
-      await axios.post('http://localhost:3001/users', {
+      await post('users', {
         name,
         email,
         password,
       });
+      navigate('/');
     } catch (error) {
       console.error('Error adding user:', error);
     }
@@ -83,23 +87,6 @@ const SignUpFrom = () => {
             {
               required: true,
               message: 'Please enter a password.',
-            },
-            {
-              min: 6,
-              message: 'Password must be at least 6 characters long.',
-            },
-          ]}
-        >
-          <Input.Password />
-        </Form.Item>
-
-        <div className='form-input-header'>Password Check</div>
-        <Form.Item
-          name='passwordCheck'
-          rules={[
-            {
-              required: true,
-              message: 'Please enter a password again.',
             },
             {
               min: 6,

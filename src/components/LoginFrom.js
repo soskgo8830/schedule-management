@@ -3,10 +3,22 @@ import { Form, Input, Button, Flex } from 'antd';
 import { Link } from 'react-router-dom';
 import LogoImage from '../images/logo.png';
 import ModeChangeSwitch from './ModeChageSwitch';
+import { get } from '../api/index';
 
 const LoginFrom = () => {
-  const onFinish = (values) => {
-    console.log('Success:', values);
+  const onFinish = async (values) => {
+    const { email, password } = values;
+    try {
+      const response = await get(`users?email=${email}&password=${password}`);
+
+      if (response.length === 0) {
+        console.log('해당 회원 정보 없음.');
+      } else {
+        console.log('성공');
+      }
+    } catch (error) {
+      console.error('Login failed:', error);
+    }
   };
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
