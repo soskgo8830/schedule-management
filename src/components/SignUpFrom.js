@@ -4,10 +4,23 @@ import { Link } from 'react-router-dom';
 import LogoImage from '../images/logo.png';
 import ModeChangeSwitch from './ModeChageSwitch';
 
+import axios from 'axios';
+
 const SignUpFrom = () => {
-  const onFinish = (values) => {
-    console.log('Success:', values);
+  const onFinish = async (values) => {
+    const { name, email, password } = values;
+
+    try {
+      await axios.post('http://localhost:3001/users', {
+        name,
+        email,
+        password,
+      });
+    } catch (error) {
+      console.error('Error adding user:', error);
+    }
   };
+
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
