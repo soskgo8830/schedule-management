@@ -24,7 +24,7 @@ const LoginFrom = () => {
         const { email, id, name } = response[0];
         dispatch(login({ email, id, name }));
         setPassLogin(true);
-        navigate('/main');
+        navigate('/calender');
       }
     } catch (error) {
       setPassLogin(false);

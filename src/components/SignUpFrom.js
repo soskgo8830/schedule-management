@@ -8,7 +8,7 @@ import { post } from '../api/index';
 import { useNavigate } from 'react-router-dom';
 
 const SignUpFrom = () => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const onFinish = async (values) => {
     const { name, email, password } = values;
