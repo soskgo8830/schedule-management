@@ -34,6 +34,10 @@
   margin: 0.5rem;
 }
 
+.padding-sm {
+  padding: 0.5rem;
+}
+
 /* margin padding End */
 
 /* common Start */
@@ -42,3 +46,20 @@
 }
 
 /* common End */
+
+/* ant Start */
+.ant-menu-item-selected {
+  background-color: #2f3249 !important;
+  color: white !important;
+}
+
+.ant-menu-submenu-selected {
+  background-color: #2f3249 !important;
+  color: white !important;
+}
+
+.ant-menu-submenu-selected > .ant-menu-submenu-title {
+  color: white !important;
+}
+
+/* ant End */

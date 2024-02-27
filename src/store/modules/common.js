@@ -21,7 +21,7 @@ export const logout = () => ({
 
 // reducer
 const initialState = {
-  isThemeMode: true,
+  isThemeMode: false,
   isAuthenticated: false,
   userData: {},
 };

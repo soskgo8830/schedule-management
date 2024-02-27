@@ -12,12 +12,10 @@ const SidebarLayout = () => {
   return (
     <Menu
       defaultSelectedKeys={['1']}
-      theme='dark'
       style={{
         height: '100%',
         borderRight: 0,
-        backgroundColor: '#2f3249',
-        color: 'white',
+        // color: 'white',
       }}
     >
       <img
@@ -25,9 +23,9 @@ const SidebarLayout = () => {
         alt='loginImg'
         style={{
           width: '80%',
-          backgroundColor: '#2f3249',
           margin: '10%',
           borderRadius: '5px',
+          backgroundColor: '#2f3249',
         }}
       />
       <Menu.Item key='1' icon={<CalendarOutlined />}>
@@ -38,12 +36,7 @@ const SidebarLayout = () => {
         Dashboards
       </Menu.Item>
 
-      <SubMenu
-        key='sub1'
-        icon={<DatabaseOutlined />}
-        title='Memo'
-        style={{ backgroundColor: '#2f3249' }}
-      >
+      <SubMenu key='sub1' icon={<DatabaseOutlined />} title='Memo'>
         <Menu.Item key='3'>memo1</Menu.Item>
         <Menu.Item key='4'>memo2</Menu.Item>
         <Menu.Item key='5'>memo3</Menu.Item>
