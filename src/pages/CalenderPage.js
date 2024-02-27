@@ -4,9 +4,9 @@ import { Calendar } from 'antd';
 
 const CalenderPage = () => {
   return (
-    <div>
+    <>
       <Calendar></Calendar>
-    </div>
+    </>
   );
 };
 

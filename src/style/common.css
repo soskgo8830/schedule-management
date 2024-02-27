@@ -53,13 +53,8 @@
   color: white !important;
 }
 
-.ant-menu-submenu-selected {
-  background-color: #2f3249 !important;
-  color: white !important;
-}
-
 .ant-menu-submenu-selected > .ant-menu-submenu-title {
-  color: white !important;
+  color: black !important;
 }
 
 /* ant End */

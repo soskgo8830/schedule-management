@@ -24,7 +24,7 @@ const MainLayout = ({ children }) => {
               padding: 0,
               borderRadius: '5px',
               backgroundColor: 'white',
-              'box-shadow':
+              boxShadow:
                 'rgba(17, 17, 26, 0.1) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px',
               marginBottom: '1rem',
             }}
