@@ -1,9 +1,11 @@
 import React from 'react';
 
+import { Calendar } from 'antd';
+
 const CalenderPage = () => {
   return (
     <div>
-      <h2>Calender Page</h2>
+      <Calendar></Calendar>
     </div>
   );
 };

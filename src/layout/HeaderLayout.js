@@ -1,23 +1,41 @@
 import React from 'react';
 
-import { Button } from 'antd';
-import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
+import { Button, Flex, Avatar, Badge } from 'antd';
+import {
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
+  UserOutlined,
+  BellOutlined,
+} from '@ant-design/icons';
+import ModeChangeSwitch from '../components/ModeChageSwitch';
 
 const HeaderLayout = ({ collapsed, collapsedHandle }) => {
   return (
-    <>
+    <Flex justify={'space-between'} align={'center'}>
       <Button
         type='text'
         icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
         onClick={collapsedHandle}
         style={{
-          fontSize: '16px',
-          width: 64,
-          height: 64,
           color: 'white',
         }}
       />
-    </>
+      <Flex justify={'center'} align={'center'} className='maring-sm'>
+        <ModeChangeSwitch />
+        <Button
+          type='text'
+          icon={<BellOutlined />}
+          className='maring-sm'
+          style={{
+            color: 'white',
+            backgroundColor: '#25293d',
+          }}
+        />
+        <Badge dot>
+          <Avatar shape='square' icon={<UserOutlined />} />
+        </Badge>
+      </Flex>
+    </Flex>
   );
 };
 

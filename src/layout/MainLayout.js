@@ -13,34 +13,31 @@ const MainLayout = ({ children }) => {
   };
 
   return (
-    <>
-      <Layout
-        style={{
-          minHeight: '100vh',
-        }}
-      >
-        <Layout>
-          <Sider width={200} collapsed={collapsed}>
-            <SidebarLayout></SidebarLayout>
-          </Sider>
+    <Layout style={{ minHeight: '100vh' }}>
+      <Layout>
+        <Sider width={200} collapsed={collapsed}>
+          <SidebarLayout></SidebarLayout>
+        </Sider>
 
-          <Content>
-            <Header
-              style={{
-                padding: 0,
-                background: '#25293b',
-              }}
-            >
-              <HeaderLayout
-                collapsed={collapsed}
-                collapsedHandle={collapsedHandle}
-              />
-            </Header>
-            <Outlet />
-          </Content>
-        </Layout>
+        <Content style={{ backgroundColor: '#25293d', padding: '1.5rem' }}>
+          <Header
+            style={{
+              padding: 0,
+              borderRadius: '5px',
+              backgroundColor: '#2f3249',
+              'box-shadow':
+                'rgba(17, 17, 26, 0.1) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px',
+            }}
+          >
+            <HeaderLayout
+              collapsed={collapsed}
+              collapsedHandle={collapsedHandle}
+            />
+          </Header>
+          <Outlet />
+        </Content>
       </Layout>
-    </>
+    </Layout>
   );
 };
 
