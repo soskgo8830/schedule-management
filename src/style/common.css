@@ -65,10 +65,7 @@
 .custom-calendar {
   padding: 1rem;
   border-radius: 5px;
-}
-
-.custom-calendar .react-calendar {
-  border-radius: 5px;
+  border: 2px solid #f0f0f0 !important;
 }
 
 .custom-calendar .react-calendar:hover {
@@ -89,13 +86,13 @@
 
 .custom-calendar .react-calendar__tile--now {
   color: white;
-  background-color: #7466f1;
+  background-color: #adb0cb;
   border-radius: 5px;
 }
 
 .custom-calendar .react-calendar__tile--now:enabled:hover {
   color: white;
-  background-color: #7466f1;
+  background-color: #adb0cb;
   border-radius: 5px;
 }
 
