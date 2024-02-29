@@ -26,7 +26,7 @@ const HeaderLayout = ({ collapsed, collapsedHandle }) => {
         <Button
           type='text'
           icon={<BellOutlined />}
-          className='maring-sm'
+          className='margin-sm'
           style={{
             color: 'white',
             backgroundColor: '#2f3249',
