@@ -52,8 +52,8 @@ const SidebarLayout = () => {
             type='text'
             icon={<FileAddOutlined />}
             style={{
-              color: '#7466f1',
-              border: '1px solid #7466f1',
+              color: '#2f3249',
+              border: '1px solid #2f3249',
               margin: '5px',
             }}
             onClick={addMemo}

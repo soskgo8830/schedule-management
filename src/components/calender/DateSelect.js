@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
 const DateSelect = () => {
   const DateSelectSection = styled.div`
@@ -8,9 +10,16 @@ const DateSelect = () => {
     padding: 1.5rem;
   `;
 
+  const [date, setDate] = useState(new Date());
+
+  const onChange = (selectedDate) => {
+    setDate(selectedDate);
+    console.log(date);
+  };
+
   return (
     <DateSelectSection>
-      <div>dd</div>
+      <Calendar onChange={onChange} value={date} className='custom-calendar' />
     </DateSelectSection>
   );
 };

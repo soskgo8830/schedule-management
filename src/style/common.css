@@ -41,7 +41,6 @@
 .padding-sm {
   padding: 0.5rem;
 }
-
 /* margin padding End */
 
 /* common Start */
@@ -60,5 +59,55 @@
 .ant-menu-submenu-selected > .ant-menu-submenu-title {
   color: black !important;
 }
-
 /* ant End */
+
+/* calendar Start */
+.custom-calendar {
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+.custom-calendar .react-calendar {
+  border-radius: 5px;
+}
+
+.custom-calendar .react-calendar:hover {
+  border-radius: 5px;
+}
+
+.custom-calendar .react-calendar__tile--active {
+  color: white;
+  background-color: #2f3249;
+  border-radius: 5px;
+}
+
+.custom-calendar .react-calendar__tile--active:enabled:hover {
+  color: white;
+  background-color: #2f3249;
+  border-radius: 5px;
+}
+
+.custom-calendar .react-calendar__tile--now {
+  color: white;
+  background-color: #7466f1;
+  border-radius: 5px;
+}
+
+.custom-calendar .react-calendar__tile--now:enabled:hover {
+  color: white;
+  background-color: #7466f1;
+  border-radius: 5px;
+}
+
+.custom-calendar .react-calendar__tile--hasActive {
+  color: white;
+  background-color: #2f3249;
+  border-radius: 5px;
+}
+
+.custom-calendar .react-calendar__tile--hasActive:enabled:hover {
+  color: white;
+  background-color: #2f3249;
+  border-radius: 5px;
+}
+/* calendar Start */

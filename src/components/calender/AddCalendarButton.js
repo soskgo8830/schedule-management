@@ -11,7 +11,7 @@ const AddCalendarButton = () => {
       <Button
         block
         style={{
-          backgroundColor: '#7466f1',
+          backgroundColor: '#2f3249',
           color: '#ffffff',
           border: 0,
         }}
