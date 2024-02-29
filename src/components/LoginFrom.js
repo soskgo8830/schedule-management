@@ -51,7 +51,7 @@ const LoginFrom = () => {
             description='There is no member information. Please enter again.'
             type='error'
             showIcon
-            className='maring-bottom-sm'
+            className='margin-bottom-sm'
           ></Alert>
         ) : (
           <div></div>

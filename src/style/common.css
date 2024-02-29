@@ -26,12 +26,16 @@
   margin-right: 0.5rem;
 }
 
-.maring-bottom-sm {
+.margin-bottom-sm {
   margin-bottom: 0.5rem;
 }
 
-.maring-sm {
+.margin-sm {
   margin: 0.5rem;
+}
+
+.margin-lg {
+  margin: 1.5rem;
 }
 
 .padding-sm {

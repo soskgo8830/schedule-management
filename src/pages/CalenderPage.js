@@ -21,7 +21,7 @@ const CalenderPage = () => {
         }}
         className='padding-sm'
       >
-        <div style={{ minWidth: '20%', borderRight: '2px solid #f0f0f0' }}>
+        <div style={{ minWidth: '25%', borderRight: '2px solid #f0f0f0' }}>
           <Flex vertical>
             <div>
               <AddCalendarButton></AddCalendarButton>
