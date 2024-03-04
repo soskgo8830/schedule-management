@@ -12,7 +12,7 @@ const CalendarMain = () => {
   };
 
   return (
-    <div style={{ width: '100%' }} className='padding-lg'>
+    <div style={{ width: '100%', color: '#2f3249' }} className='padding-lg'>
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, listPlugin]}
         initialView={'dayGridMonth'}
@@ -23,12 +23,22 @@ const CalendarMain = () => {
           {
             title: '이벤트1',
             date: '2024-03-01',
-            start: '2024-03-01 12:11',
-            end: '2024-03-04 14:24',
-            backgroundColor: '#2f3249',
-            borderColor: '#2f3249',
+            start: '2024-03-01',
+            end: '2024-03-01',
+            backgroundColor: '#fe9e41',
+            borderColor: '#fe9e41',
+            textColor: 'white',
           },
-          { title: '이벤트2', date: '2024-03-02' },
+          {
+            title: '이벤트2',
+            date: '2024-03-01',
+            start: '2024-03-01 02:11',
+            end: '2024-03-04 17:24',
+            status: 'done',
+            backgroundColor: '#ea5456',
+            borderColor: '#ea5456',
+            textColor: 'white',
+          },
         ]}
       />
     </div>
@@ -38,7 +48,7 @@ const CalendarMain = () => {
 function renderEventContent(eventInfo) {
   return (
     <>
-      <i>{eventInfo.event.title}</i>
+      <div>{eventInfo.event.title}</div>
     </>
   );
 }

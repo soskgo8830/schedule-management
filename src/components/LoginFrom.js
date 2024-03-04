@@ -24,7 +24,8 @@ const LoginFrom = () => {
         const { email, id, name } = response[0];
         dispatch(login({ email, id, name }));
         setPassLogin(true);
-        navigate('/calender');
+        localStorage.setItem('selectedMenu', 'calendar');
+        navigate('/calendar');
       }
     } catch (error) {
       setPassLogin(false);

@@ -1,12 +1,12 @@
 import React from 'react';
-import CalendarMain from '../components/calender/CalendarMain';
-import AddCalendarButton from '../components/calender/AddCalendarButton';
-import DateSelect from '../components/calender/DateSelect';
-import Filters from '../components/calender/Filters';
+import CalendarMain from '../components/calendar/CalendarMain';
+import AddCalendarButton from '../components/calendar/AddCalendarButton';
+import DateSelect from '../components/calendar/DateSelect';
+import Filters from '../components/calendar/Filters';
 
 import { Flex } from 'antd';
 
-const CalenderPage = () => {
+const CalendarPage = () => {
   return (
     <>
       <Flex
@@ -39,4 +39,4 @@ const CalenderPage = () => {
   );
 };
 
-export default CalenderPage;
+export default CalendarPage;

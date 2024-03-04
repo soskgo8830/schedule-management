@@ -112,8 +112,3 @@
   border-radius: 5px;
 }
 /* calendar Start */
-
-.ant-checkbox-checked .ant-checkbox-inner {
-  background-color: red;
-  border-color: red;
-}

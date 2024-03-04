@@ -5,7 +5,9 @@ import MainLayout from './layout/MainLayout';
 import LoginPage from './pages/LoginPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import SignUpPage from './pages/SignUpPage';
-import CalenderPage from './pages/CalenderPage';
+import CalendarPage from './pages/CalenderPage';
+import DashboardsPage from './pages/DashboardsPage';
+import MemoPage from './pages/MemoPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
@@ -17,7 +19,9 @@ function App() {
         <Route path='/sign-up' element={<SignUpPage />} />
 
         <Route element={<MainLayout />}>
-          <Route path='/calender' element={<CalenderPage />} />
+          <Route path='/calendar' element={<CalendarPage />} />
+          <Route path='/dashboards' element={<DashboardsPage />} />
+          <Route path='/memo/:id' element={<MemoPage />} />
         </Route>
 
         <Route path='*' element={<NotFoundPage />}></Route>
