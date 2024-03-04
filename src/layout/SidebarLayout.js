@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import LogoImage from '../images/logo.png';
 import { Menu, Button, Flex } from 'antd';
 import {
@@ -7,62 +7,113 @@ import {
   DatabaseOutlined,
   FileAddOutlined,
 } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
+import AddMemoModal from '../components/memo/AddMemoModal';
+import { get } from '../api/index';
+
 const { SubMenu } = Menu;
 
 const SidebarLayout = () => {
+  const navigate = useNavigate();
+  const [selectedMenu, setSelectedMenu] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [memoList, setMemoList] = useState([]);
+
+  useEffect(() => {
+    const storedMenu = localStorage.getItem('selectedMenu');
+    if (storedMenu) {
+      setSelectedMenu(storedMenu);
+    }
+  }, []);
+
+  useEffect(() => {
+    getMemoList();
+  }, []);
+
   const addMemo = async () => {
-    console.log('addMemo');
+    setIsModalOpen(true);
+  };
+
+  const handleMenuClick = (e) => {
+    setSelectedMenu(e.key);
+    localStorage.setItem('selectedMenu', e.key); // 선택된 메뉴를 로컬 스토리지에 저장
+    if (e.key === 'calendar' || e.key === 'dashboards') {
+      navigate(`/${e.key}`);
+    } else {
+      navigate(`/memo/${e.key}`);
+    }
+  };
+
+  const getMemoList = async () => {
+    try {
+      const response = await get(`memos`);
+      setMemoList(response);
+    } catch (error) {
+      console.error('데이터 가져오는 중 오류 발생:', error);
+    }
+  };
+
+  const handleAddMemoFinish = async () => {
+    getMemoList();
   };
 
   return (
-    <Menu
-      defaultSelectedKeys={['1']}
-      style={{
-        height: '100%',
-        borderRight: 0,
-      }}
-    >
-      <img
-        src={LogoImage}
-        alt='loginImg'
+    <>
+      <Menu
+        defaultSelectedKeys={['1']}
+        selectedKeys={[selectedMenu]}
         style={{
-          width: '80%',
-          margin: '10%',
-          borderRadius: '5px',
-          backgroundColor: '#2f3249',
+          height: '100%',
+          borderRight: 0,
         }}
-      />
-      <Menu.Item key='1' icon={<CalendarOutlined />}>
-        Calender
-      </Menu.Item>
+        onClick={handleMenuClick}
+      >
+        <img
+          src={LogoImage}
+          alt='loginImg'
+          style={{
+            width: '80%',
+            margin: '10%',
+            borderRadius: '5px',
+            backgroundColor: '#2f3249',
+          }}
+        />
+        <Menu.Item key='calendar' icon={<CalendarOutlined />}>
+          Calendar
+        </Menu.Item>
 
-      <Menu.Item key='2' icon={<DashboardOutlined />}>
-        Dashboards
-      </Menu.Item>
+        <Menu.Item key='dashboards' icon={<DashboardOutlined />}>
+          Dashboards
+        </Menu.Item>
 
-      <SubMenu key='sub1' icon={<DatabaseOutlined />} title='Memo'>
-        <Menu.Item key='3'>memo1</Menu.Item>
-        <Menu.Item key='4'>memo2</Menu.Item>
-        <Menu.Item key='5'>memo3</Menu.Item>
-        <Menu.Item key='6'>memo4</Menu.Item>
+        <SubMenu icon={<DatabaseOutlined />} title='Memo'>
+          {memoList.map((list) => (
+            <Menu.Item key={list.id}>{list.title}</Menu.Item>
+          ))}
 
-        <Flex justify={'center'} align={'center'}>
-          <Button
-            block
-            type='text'
-            icon={<FileAddOutlined />}
-            style={{
-              color: '#2f3249',
-              border: '1px solid #2f3249',
-              margin: '5px',
-            }}
-            onClick={addMemo}
-          >
-            Add Memo
-          </Button>
-        </Flex>
-      </SubMenu>
-    </Menu>
+          <Flex justify={'center'} align={'center'}>
+            <Button
+              block
+              type='text'
+              icon={<FileAddOutlined />}
+              style={{
+                color: '#2f3249',
+                border: '1px solid #2f3249',
+                margin: '5px',
+              }}
+              onClick={addMemo}
+            >
+              Add Memo
+            </Button>
+          </Flex>
+        </SubMenu>
+      </Menu>
+      <AddMemoModal
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        handleAddMemoFinish={handleAddMemoFinish}
+      ></AddMemoModal>
+    </>
   );
 };
 
