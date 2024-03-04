@@ -1,0 +1,32 @@
+{
+  "users": [
+    {
+      "id": "7bb3",
+      "name": "steven",
+      "email": "soskgo@naver.com",
+      "password": "test12"
+    }
+  ],
+  "categorys": [
+    {
+      "id": "ca2",
+      "name": "Personal",
+      "color": "#ea5456"
+    },
+    {
+      "id": "ca3",
+      "name": "Business",
+      "color": "#fe9e41"
+    },
+    {
+      "id": "ca4",
+      "name": "Holiday",
+      "color": "#28c76f"
+    },
+    {
+      "id": "ca5",
+      "name": "ETC",
+      "color": "#11cee5"
+    }
+  ]
+}
