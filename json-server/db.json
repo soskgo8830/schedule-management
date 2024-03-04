@@ -28,5 +28,26 @@
       "name": "ETC",
       "color": "#11cee5"
     }
+  ],
+  "memos": [
+    {
+      "id": "14c1",
+      "title": "테스트 메모",
+      "createDt": "2024-03-04T14:09:30.978Z",
+      "contents": "",
+      "sortNumber": 0,
+      "subMemos": []
+    }
+  ],
+  "schedules": [
+    {
+      "id": "sc1",
+      "title": "title",
+      "date": "2024-03-01",
+      "start": "2024-03-01 12:11",
+      "end": "2024-03-04 14:24",
+      "backgroundColor": "#2f3249",
+      "borderColor": "#2f3249"
+    }
   ]
 }
