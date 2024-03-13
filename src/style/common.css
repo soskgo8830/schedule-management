@@ -112,3 +112,27 @@
   border-radius: 5px;
 }
 /* calendar Start */
+
+@media (max-width: 1024px) {
+  .menu {
+    display: none;
+  }
+  .collapsed-btn {
+    display: none;
+  }
+  .drawer-btn {
+    display: block;
+  }
+}
+
+@media (min-width: 1025px) {
+  .menu {
+    display: block;
+  }
+  .collapsed-btn {
+    display: block;
+  }
+  .drawer-btn {
+    display: none;
+  }
+}

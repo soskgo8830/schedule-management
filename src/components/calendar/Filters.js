@@ -20,7 +20,7 @@ const Filters = () => {
   }, []);
 
   const onCheckboxChange = (values) => {
-    console.log(values);
+    // console.log(values);
   };
 
   return (

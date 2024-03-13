@@ -15,7 +15,7 @@ const MainLayout = ({ children }) => {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Layout>
-        <Sider width={200} collapsed={collapsed}>
+        <Sider width={200} collapsed={collapsed} className='menu'>
           <SidebarLayout></SidebarLayout>
         </Sider>
         <Content style={{ padding: '1.5rem' }}>

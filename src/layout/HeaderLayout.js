@@ -13,9 +13,19 @@ const HeaderLayout = ({ collapsed, collapsedHandle }) => {
   return (
     <Flex justify={'space-between'} align={'center'} className='padding-sm'>
       <Button
+        className='collapsed-btn'
         type='text'
         icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
         onClick={collapsedHandle}
+        style={{
+          color: 'white',
+          backgroundColor: '#2f3249',
+        }}
+      />
+      <Button
+        className='drawer-btn'
+        type='text'
+        icon={<MenuUnfoldOutlined />}
         style={{
           color: 'white',
           backgroundColor: '#2f3249',
