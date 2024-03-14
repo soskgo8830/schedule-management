@@ -58,62 +58,60 @@ const SidebarLayout = () => {
   };
 
   return (
-    <>
-      <Menu
-        defaultSelectedKeys={['1']}
-        selectedKeys={[selectedMenu]}
+    <Menu
+      defaultSelectedKeys={['1']}
+      selectedKeys={[selectedMenu]}
+      style={{
+        height: '100%',
+        borderRight: 0,
+      }}
+      onClick={handleMenuClick}
+    >
+      <img
+        src={LogoImage}
+        alt='loginImg'
         style={{
-          height: '100%',
-          borderRight: 0,
+          width: '80%',
+          margin: '10%',
+          borderRadius: '5px',
+          backgroundColor: '#2f3249',
         }}
-        onClick={handleMenuClick}
-      >
-        <img
-          src={LogoImage}
-          alt='loginImg'
-          style={{
-            width: '80%',
-            margin: '10%',
-            borderRadius: '5px',
-            backgroundColor: '#2f3249',
-          }}
-        />
-        <Menu.Item key='calendar' icon={<CalendarOutlined />}>
-          Calendar
-        </Menu.Item>
+      />
+      <Menu.Item key='calendar' icon={<CalendarOutlined />}>
+        Calendar
+      </Menu.Item>
 
-        <Menu.Item key='dashboards' icon={<DashboardOutlined />}>
-          Dashboards
-        </Menu.Item>
+      <Menu.Item key='dashboards' icon={<DashboardOutlined />}>
+        Dashboards
+      </Menu.Item>
 
-        <SubMenu icon={<DatabaseOutlined />} title='Memo'>
-          {memoList.map((list) => (
-            <Menu.Item key={list.id}>{list.title}</Menu.Item>
-          ))}
+      <SubMenu icon={<DatabaseOutlined />} title='Memo'>
+        {memoList.map((list) => (
+          <Menu.Item key={list.id}>{list.title}</Menu.Item>
+        ))}
 
-          <Flex justify={'center'} align={'center'}>
-            <Button
-              block
-              type='text'
-              icon={<FileAddOutlined />}
-              style={{
-                color: '#2f3249',
-                border: '1px solid #2f3249',
-                margin: '5px',
-              }}
-              onClick={addMemo}
-            >
-              Add Memo
-            </Button>
-          </Flex>
-        </SubMenu>
-      </Menu>
+        <Flex justify={'center'} align={'center'}>
+          <Button
+            block
+            type='text'
+            icon={<FileAddOutlined />}
+            style={{
+              color: '#2f3249',
+              border: '1px solid #2f3249',
+              margin: '5px',
+            }}
+            onClick={addMemo}
+          >
+            Add Memo
+          </Button>
+        </Flex>
+      </SubMenu>
       <AddMemoModal
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
         handleAddMemoFinish={handleAddMemoFinish}
       ></AddMemoModal>
-    </>
+    </Menu>
   );
 };
 
