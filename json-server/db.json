@@ -9,22 +9,22 @@
   ],
   "categorys": [
     {
-      "id": "ca2",
+      "id": "ca1",
       "name": "Personal",
       "color": "#ea5456"
     },
     {
-      "id": "ca3",
+      "id": "ca2",
       "name": "Business",
       "color": "#fe9e41"
     },
     {
-      "id": "ca4",
+      "id": "ca3",
       "name": "Holiday",
       "color": "#28c76f"
     },
     {
-      "id": "ca5",
+      "id": "ca4",
       "name": "ETC",
       "color": "#11cee5"
     }
@@ -46,8 +46,8 @@
       "date": "2024-03-01",
       "start": "2024-03-01 12:11",
       "end": "2024-03-04 14:24",
-      "backgroundColor": "#2f3249",
-      "borderColor": "#2f3249"
+      "contents": "",
+      "categoryId": "ca1"
     }
   ]
 }
