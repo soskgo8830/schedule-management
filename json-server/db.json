@@ -47,7 +47,10 @@
       "start": "2024-03-01 12:11",
       "end": "2024-03-04 14:24",
       "contents": "",
-      "categoryId": "ca1"
+      "categoryId": "ca1",
+      "backgroundColor": "#fe9e41",
+      "borderColor": "#fe9e41",
+      "textColor": "white"
     }
   ]
 }

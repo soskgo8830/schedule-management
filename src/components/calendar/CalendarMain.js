@@ -1,14 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
+import { get } from '../../api/index';
 
 const CalendarMain = () => {
   const headerToolbar = {
     left: 'prev,next today',
     center: 'title',
     right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
+  };
+
+  const [calendarList, setCalendarList] = useState([]);
+
+  useEffect(() => {
+    getCalendarList();
+  }, []);
+
+  const getCalendarList = async () => {
+    try {
+      const response = await get(`schedules`);
+      setCalendarList(response);
+    } catch (error) {
+      console.error('데이터 가져오는 중 오류 발생:', error);
+    }
   };
 
   return (
@@ -19,27 +35,7 @@ const CalendarMain = () => {
         weekends={true}
         eventContent={renderEventContent}
         headerToolbar={headerToolbar} // 커스텀 헤더 설정
-        events={[
-          {
-            title: '이벤트1',
-            date: '2024-03-01',
-            start: '2024-03-01',
-            end: '2024-03-01',
-            backgroundColor: '#fe9e41',
-            borderColor: '#fe9e41',
-            textColor: 'white',
-          },
-          {
-            title: '이벤트2',
-            date: '2024-03-01',
-            start: '2024-03-01 02:11',
-            end: '2024-03-04 17:24',
-            status: 'done',
-            backgroundColor: '#ea5456',
-            borderColor: '#ea5456',
-            textColor: 'white',
-          },
-        ]}
+        events={calendarList}
       />
     </div>
   );
