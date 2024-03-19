@@ -65,54 +65,6 @@
 }
 /* ant End */
 
-/* calendar Start */
-.custom-calendar {
-  padding: 1rem;
-  border-radius: 5px;
-  border: 2px solid #f0f0f0 !important;
-}
-
-.custom-calendar .react-calendar:hover {
-  border-radius: 5px;
-}
-
-.custom-calendar .react-calendar__tile--active {
-  color: white;
-  background-color: #2f3249;
-  border-radius: 5px;
-}
-
-.custom-calendar .react-calendar__tile--active:enabled:hover {
-  color: white;
-  background-color: #2f3249;
-  border-radius: 5px;
-}
-
-.custom-calendar .react-calendar__tile--now {
-  color: white;
-  background-color: #adb0cb;
-  border-radius: 5px;
-}
-
-.custom-calendar .react-calendar__tile--now:enabled:hover {
-  color: white;
-  background-color: #adb0cb;
-  border-radius: 5px;
-}
-
-.custom-calendar .react-calendar__tile--hasActive {
-  color: white;
-  background-color: #2f3249;
-  border-radius: 5px;
-}
-
-.custom-calendar .react-calendar__tile--hasActive:enabled:hover {
-  color: white;
-  background-color: #2f3249;
-  border-radius: 5px;
-}
-/* calendar Start */
-
 @media (max-width: 1024px) {
   .menu {
     display: none;

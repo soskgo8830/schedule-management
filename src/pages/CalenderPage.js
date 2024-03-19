@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import CalendarMain from '../components/calendar/CalendarMain';
 import AddCalendarButton from '../components/calendar/AddCalendarButton';
-import DateSelect from '../components/calendar/DateSelect';
 import Filters from '../components/calendar/Filters';
 import AddCalendarModal from '../components/calendar/AddCalendarModal';
 import { get, post } from '../api/index';
@@ -84,9 +83,6 @@ const CalendarPage = () => {
         <Flex vertical>
           <div>
             <AddCalendarButton onAddButtonClick={openModal} />
-          </div>
-          <div>
-            <DateSelect />
           </div>
           <div>
             <Filters categories={categories} />
