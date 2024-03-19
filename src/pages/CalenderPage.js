@@ -1,15 +1,76 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import CalendarMain from '../components/calendar/CalendarMain';
 import AddCalendarButton from '../components/calendar/AddCalendarButton';
 import DateSelect from '../components/calendar/DateSelect';
 import Filters from '../components/calendar/Filters';
-
+import AddCalendarModal from '../components/calendar/AddCalendarModal';
+import { get, post } from '../api/index';
 import { Flex } from 'antd';
 
 const CalendarPage = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [calendarList, setCalendarList] = useState([]);
+
+  const fetchData = useCallback(async () => {
+    try {
+      const [categoryResponse, calendarResponse] = await Promise.all([
+        get('categorys'),
+        get('schedules'),
+      ]);
+
+      const categoryMap = categoryResponse.reduce((map, category) => {
+        map[category.id] = category;
+        return map;
+      }, {});
+
+      const addColorCalendarList = calendarResponse.map((list) => {
+        const category = categoryMap[list.categoryId];
+        if (category) {
+          return {
+            ...list,
+            backgroundColor: category.color,
+            borderColor: category.color,
+          };
+        }
+        return {
+          ...list,
+          backgroundColor: '#7367ef',
+          borderColor: '#7367ef',
+        };
+      });
+
+      setCategories(categoryResponse);
+      setCalendarList(addColorCalendarList);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  const openModal = useCallback(() => {
+    setIsModalOpen(true);
+  }, []);
+
+  const handleAddCalendarFinish = useCallback(
+    async (addCalendarData) => {
+      try {
+        await post('schedules', addCalendarData);
+        fetchData();
+        setIsModalOpen(false);
+      } catch (error) {
+        console.error('Error adding schedules:', error);
+      }
+    },
+    [fetchData]
+  );
+
   return (
     <Flex
-      justify={'space-between'}
+      justify='space-between'
       style={{
         width: '100%',
         minHeight: '90vh',
@@ -22,17 +83,23 @@ const CalendarPage = () => {
       <div style={{ minWidth: '25%', borderRight: '2px solid #f0f0f0' }}>
         <Flex vertical>
           <div>
-            <AddCalendarButton></AddCalendarButton>
+            <AddCalendarButton onAddButtonClick={openModal} />
           </div>
           <div>
-            <DateSelect></DateSelect>
+            <DateSelect />
           </div>
           <div>
-            <Filters></Filters>
+            <Filters categories={categories} />
           </div>
         </Flex>
       </div>
-      <CalendarMain></CalendarMain>
+      <CalendarMain categories={categories} calendarList={calendarList} />
+      <AddCalendarModal
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        handleAddCalendarFinish={handleAddCalendarFinish}
+        categories={categories}
+      />
     </Flex>
   );
 };

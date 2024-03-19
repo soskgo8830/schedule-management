@@ -41,16 +41,20 @@
   ],
   "schedules": [
     {
-      "id": "sc1",
-      "title": "title",
-      "date": "2024-03-01",
-      "start": "2024-03-01 12:11",
-      "end": "2024-03-04 14:24",
-      "contents": "",
+      "id": "5819",
+      "title": "1",
+      "start": "2024-03-14 11:38:31",
+      "end": "2024-03-15 16:34:38",
+      "categoryId": "ca2",
+      "contents": "1"
+    },
+    {
+      "id": "a8ab",
+      "title": "2",
+      "start": "2024-03-01 00:00:00",
+      "end": "2024-03-07 23:59:59",
       "categoryId": "ca1",
-      "backgroundColor": "#fe9e41",
-      "borderColor": "#fe9e41",
-      "textColor": "white"
+      "contents": "gjgj"
     }
   ]
 }

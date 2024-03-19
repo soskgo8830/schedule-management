@@ -1,17 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button } from 'antd';
-import AddCalendarModal from './AddCalendarModal';
 
-const AddCalendarButton = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const addCalendarEvent = async () => {
-    console.log('addCalendarEvent');
-    setIsModalOpen(true);
-  };
-
-  const handleAddCalendarFinish = async () => {
-    console.log('handleAddCalendarFinish');
+const AddCalendarButton = ({ onAddButtonClick }) => {
+  const handleClick = () => {
+    onAddButtonClick();
   };
 
   return (
@@ -24,16 +16,11 @@ const AddCalendarButton = () => {
             color: '#ffffff',
             border: 0,
           }}
-          onClick={addCalendarEvent}
+          onClick={handleClick}
         >
           Add Event
         </Button>
       </div>
-      <AddCalendarModal
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-        handleAddCalendarFinish={handleAddCalendarFinish}
-      ></AddCalendarModal>
     </div>
   );
 };

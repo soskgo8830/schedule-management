@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Input, Modal, Button, DatePicker, Select } from 'antd';
+import moment from 'moment/moment';
 const { TextArea } = Input;
 const { RangePicker } = DatePicker;
 const { Option } = Select;
@@ -8,41 +9,39 @@ const AddCalendarModal = ({
   isModalOpen,
   setIsModalOpen,
   handleAddCalendarFinish,
+  categories,
 }) => {
+  const [addCalendarData, setAddCalendarData] = useState({
+    title: '',
+    start: '',
+    end: '',
+    categoryId: '',
+    contents: '',
+  });
+
   const handleCancel = () => {
     setIsModalOpen(false);
   };
 
-  const onFinish = async (values) => {
-    console.log(values);
+  const onFinish = async () => {
+    handleAddCalendarFinish(addCalendarData);
   };
 
-  function handleChange(value) {
-    console.log(`Selected: ${value}`);
-  }
+  const onValuesChange = (changedValues, allValues) => {
+    const { title, contents, categorys, rangeDate } = allValues;
+    const startRangeDate = rangeDate ? moment(rangeDate[0].$d) : moment();
+    const endRangeDate = rangeDate ? moment(rangeDate[1].$d) : moment();
 
-  const categorys = [
-    {
-      id: 'ca1',
-      name: 'Personal',
-      color: '#ea5456',
-    },
-    {
-      id: 'ca2',
-      name: 'Business',
-      color: '#fe9e41',
-    },
-    {
-      id: 'ca3',
-      name: 'Holiday',
-      color: '#28c76f',
-    },
-    {
-      id: 'ca4',
-      name: 'ETC',
-      color: '#11cee5',
-    },
-  ];
+    const newData = {
+      title: title || '',
+      start: startRangeDate.format('YYYY-MM-DD HH:mm:ss'),
+      end: endRangeDate.format('YYYY-MM-DD HH:mm:ss'),
+      categoryId: categorys || '',
+      contents: contents || '',
+    };
+
+    setAddCalendarData(newData);
+  };
 
   return (
     <Modal
@@ -56,6 +55,7 @@ const AddCalendarModal = ({
         layout='vertical'
         onFinish={onFinish}
         autoComplete='off'
+        onValuesChange={onValuesChange}
       >
         <div className='form-input-header'>Title</div>
         <Form.Item
@@ -68,19 +68,6 @@ const AddCalendarModal = ({
           ]}
         >
           <Input />
-        </Form.Item>
-
-        <div className='form-input-header'>Date</div>
-        <Form.Item
-          name='date'
-          rules={[
-            {
-              required: true,
-              message: 'Please input Date.',
-            },
-          ]}
-        >
-          <DatePicker style={{ width: '100%' }} />
         </Form.Item>
 
         <div className='form-input-header'>Range Date</div>
@@ -106,7 +93,7 @@ const AddCalendarModal = ({
             },
           ]}
         >
-          <TextArea rows={6} />
+          <TextArea rows={10} />
         </Form.Item>
 
         <div className='form-input-header'>categorys</div>
@@ -119,8 +106,8 @@ const AddCalendarModal = ({
             },
           ]}
         >
-          <Select style={{ width: '100%' }} onChange={handleChange}>
-            {categorys.map((category) => (
+          <Select style={{ width: '100%' }}>
+            {categories.map((category) => (
               <Option
                 key={category.id}
                 value={category.id}
@@ -137,7 +124,7 @@ const AddCalendarModal = ({
             htmlType='submit'
             block
             style={{
-              backgroundColor: '#7466f1',
+              backgroundColor: '#2f3249',
               color: '#ffffff',
               border: 0,
             }}

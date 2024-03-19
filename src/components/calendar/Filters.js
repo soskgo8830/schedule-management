@@ -1,24 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { get } from '../../api/index';
-
+import React from 'react';
 import Checkbox from '../common/CheckBox';
 
-const Filters = () => {
-  const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await get(`categorys`);
-        setCategories(response);
-      } catch (error) {
-        console.error('데이터 가져오는 중 오류 발생:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
+const Filters = ({ categories }) => {
   const onCheckboxChange = (values) => {
     // console.log(values);
   };
