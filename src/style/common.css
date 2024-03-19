@@ -88,3 +88,9 @@
     display: none;
   }
 }
+
+/* FullCalendar Start */
+:where(.css-dev-only-do-not-override-1b0bdye) a {
+  color: rgb(47, 50, 73);
+}
+/* FullCalendar End */

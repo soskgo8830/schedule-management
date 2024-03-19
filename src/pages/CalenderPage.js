@@ -2,14 +2,17 @@ import React, { useState, useEffect, useCallback } from 'react';
 import CalendarMain from '../components/calendar/CalendarMain';
 import AddCalendarButton from '../components/calendar/AddCalendarButton';
 import Filters from '../components/calendar/Filters';
+import SearchCalendar from '../components/calendar/SearchCalendar';
 import AddCalendarModal from '../components/calendar/AddCalendarModal';
 import { get, post } from '../api/index';
 import { Flex } from 'antd';
+import { useSelector } from 'react-redux';
 
 const CalendarPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [categories, setCategories] = useState([]);
   const [calendarList, setCalendarList] = useState([]);
+  const searchObj = useSelector(({ calendar }) => calendar.searchObj);
 
   const fetchData = useCallback(async () => {
     try {
@@ -50,6 +53,10 @@ const CalendarPage = () => {
     fetchData();
   }, [fetchData]);
 
+  useEffect(() => {
+    console.log(searchObj);
+  }, [searchObj]);
+
   const openModal = useCallback(() => {
     setIsModalOpen(true);
   }, []);
@@ -83,6 +90,9 @@ const CalendarPage = () => {
         <Flex vertical>
           <div>
             <AddCalendarButton onAddButtonClick={openModal} />
+          </div>
+          <div>
+            <SearchCalendar></SearchCalendar>
           </div>
           <div>
             <Filters categories={categories} />

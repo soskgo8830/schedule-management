@@ -29,13 +29,13 @@ const AddCalendarModal = ({
 
   const onValuesChange = (changedValues, allValues) => {
     const { title, contents, categorys, rangeDate } = allValues;
-    const startRangeDate = rangeDate ? moment(rangeDate[0].$d) : moment();
-    const endRangeDate = rangeDate ? moment(rangeDate[1].$d) : moment();
+    const startRangeDate = rangeDate ? moment(rangeDate[0].$d) : '';
+    const endRangeDate = rangeDate ? moment(rangeDate[1].$d) : '';
 
     const newData = {
       title: title || '',
-      start: startRangeDate.format('YYYY-MM-DD HH:mm:ss'),
-      end: endRangeDate.format('YYYY-MM-DD HH:mm:ss'),
+      start: startRangeDate ? startRangeDate.format('YYYY-MM-DD HH:mm:ss') : '',
+      end: endRangeDate ? endRangeDate.format('YYYY-MM-DD HH:mm:ss') : '',
       categoryId: categorys || '',
       contents: contents || '',
     };

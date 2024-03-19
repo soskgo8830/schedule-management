@@ -14,6 +14,7 @@ const CalendarMain = ({ categories, calendarList }) => {
   return (
     <div style={{ width: '100%', color: '#2f3249' }} className='padding-lg'>
       <FullCalendar
+        locale={'ko'}
         plugins={[dayGridPlugin, timeGridPlugin, listPlugin]}
         initialView={'dayGridMonth'}
         weekends={true}
