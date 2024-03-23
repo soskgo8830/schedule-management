@@ -3,7 +3,7 @@ import Checkbox from '../common/CheckBox';
 
 const Filters = ({ categories }) => {
   const onCheckboxChange = (values) => {
-    // console.log(values);
+    console.log(values);
   };
 
   return (

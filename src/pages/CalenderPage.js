@@ -18,7 +18,9 @@ const CalendarPage = () => {
     try {
       const [categoryResponse, calendarResponse] = await Promise.all([
         get('categorys'),
-        get('schedules'),
+        get(
+          `schedules?title=${searchObj.title}&start=${searchObj.start}&end=${searchObj.end}`
+        ),
       ]);
 
       const categoryMap = categoryResponse.reduce((map, category) => {
@@ -47,15 +49,11 @@ const CalendarPage = () => {
     } catch (error) {
       console.error('Error fetching data:', error);
     }
-  }, []);
+  }, [searchObj]);
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
-
-  useEffect(() => {
-    console.log(searchObj);
-  }, [searchObj]);
 
   const openModal = useCallback(() => {
     setIsModalOpen(true);

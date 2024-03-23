@@ -29,7 +29,14 @@ const CalendarMain = ({ categories, calendarList }) => {
 function renderEventContent(eventInfo) {
   return (
     <>
-      <div>{eventInfo.event.title}</div>
+      <div
+        style={{
+          fontSize: '1rem',
+          padding: '0.2rem',
+        }}
+      >
+        {eventInfo.event.title}
+      </div>
     </>
   );
 }
