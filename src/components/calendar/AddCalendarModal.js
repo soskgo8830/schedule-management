@@ -21,6 +21,8 @@ const AddCalendarModal = ({
   handleAddCalendarFinish,
   categories,
 }) => {
+  const [form] = Form.useForm();
+
   const [addCalendarData, setAddCalendarData] = useState({
     title: '',
     start: '',
@@ -30,12 +32,30 @@ const AddCalendarModal = ({
     checkList: [],
   });
 
-  const handleCancel = () => {
+  const handleCancel = async () => {
+    form.resetFields();
+    setAddCalendarData({
+      title: '',
+      start: '',
+      end: '',
+      categoryId: '',
+      contents: '',
+      checkList: [],
+    });
     setIsModalOpen(false);
   };
 
   const onFinish = async () => {
     handleAddCalendarFinish(addCalendarData);
+    form.resetFields();
+    setAddCalendarData({
+      title: '',
+      start: '',
+      end: '',
+      categoryId: '',
+      contents: '',
+      checkList: [],
+    });
   };
 
   const onValuesChange = (changedValues, allValues) => {
@@ -63,18 +83,12 @@ const AddCalendarModal = ({
       footer={null}
     >
       <Form
-        name='basic'
+        form={form}
+        name='addCalendar'
         layout='vertical'
         onFinish={onFinish}
         autoComplete='off'
         onValuesChange={onValuesChange}
-        initialValues={{
-          title: '',
-          start: '',
-          end: '',
-          categoryId: null,
-          contents: '',
-        }}
       >
         <div className='form-input-header'>Title</div>
         <Form.Item

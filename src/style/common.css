@@ -94,4 +94,10 @@
 :where(.css-dev-only-do-not-override-1b0bdye) a {
   color: rgb(47, 50, 73);
 }
+
+.today-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
 /* FullCalendar End */

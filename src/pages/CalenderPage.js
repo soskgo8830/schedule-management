@@ -36,12 +36,13 @@ const CalendarPage = () => {
             backgroundColor: category.color,
             borderColor: category.color,
           };
+        } else {
+          return {
+            ...list,
+            backgroundColor: '#7367ef',
+            borderColor: '#7367ef',
+          };
         }
-        return {
-          ...list,
-          backgroundColor: '#7367ef',
-          borderColor: '#7367ef',
-        };
       });
 
       setCategories(categoryResponse);
@@ -77,7 +78,6 @@ const CalendarPage = () => {
       justify='space-between'
       style={{
         width: '100%',
-        minHeight: '90vh',
         backgroundColor: 'white',
         borderRadius: '5px',
         boxShadow:
