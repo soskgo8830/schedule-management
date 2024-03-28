@@ -6,7 +6,6 @@ import {
   Button,
   DatePicker,
   Select,
-  Space,
   Card,
   Checkbox,
 } from 'antd';
@@ -28,6 +27,7 @@ const AddCalendarModal = ({
     end: '',
     categoryId: '',
     contents: '',
+    checkList: [],
   });
 
   const handleCancel = () => {
@@ -39,7 +39,7 @@ const AddCalendarModal = ({
   };
 
   const onValuesChange = (changedValues, allValues) => {
-    const { title, contents, categorys, rangeDate } = allValues;
+    const { title, contents, categorys, rangeDate, checkList } = allValues;
     const startRangeDate = rangeDate ? moment(rangeDate[0].$d) : '';
     const endRangeDate = rangeDate ? moment(rangeDate[1].$d) : '';
 
@@ -49,14 +49,10 @@ const AddCalendarModal = ({
       end: endRangeDate ? endRangeDate.format('YYYY-MM-DD HH:mm:ss') : '',
       categoryId: categorys || '',
       contents: contents || '',
+      checkList: checkList || [],
     };
 
     setAddCalendarData(newData);
-  };
-
-  const handleTaskToggle = (subField) => {
-    console.log(subField);
-    console.log('?');
   };
 
   return (
@@ -119,7 +115,7 @@ const AddCalendarModal = ({
           <TextArea rows={10} />
         </Form.Item>
 
-        <div className='form-input-header'>checkList</div>
+        <div className='form-input-header'>Check List</div>
         <Form.List name='checkList'>
           {(fields, { add, remove }) => (
             <div
@@ -143,12 +139,20 @@ const AddCalendarModal = ({
                     />
                   }
                 >
-                  <Form.Item label='Name' name={[field.name, 'name']}>
-                    <Input />
+                  <Form.Item
+                    name={[field.name, 'checkCategory']}
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please input Check Category.',
+                      },
+                    ]}
+                  >
+                    <Input placeholder='Check Category' />
                   </Form.Item>
 
-                  <Form.Item label='List'>
-                    <Form.List name={[field.name, 'list']}>
+                  <Form.Item>
+                    <Form.List name={[field.name, 'item']}>
                       {(subFields, subOpt) => (
                         <div
                           style={{
@@ -158,22 +162,36 @@ const AddCalendarModal = ({
                           }}
                         >
                           {subFields.map((subField) => (
-                            <Space key={subField.key}>
-                              <Checkbox
-                                checked={subField.completed}
-                                onChange={() => handleTaskToggle(subField)}
+                            <div
+                              key={subField.key}
+                              style={{ display: 'flex', alignItems: 'center' }}
+                            >
+                              <Form.Item
+                                noStyle
+                                name={[subField.name, 'isCheck']}
+                                valuePropName='checked'
+                                initialValue={false}
                               >
-                                {subField.text}
-                              </Checkbox>
-                              <Form.Item noStyle name={[subField.name, 'name']}>
-                                <Input placeholder='first' />
+                                <Checkbox
+                                  style={{ marginRight: 10 }}
+                                ></Checkbox>
+                              </Form.Item>
+                              <Form.Item
+                                noStyle
+                                name={[subField.name, 'item']}
+                                style={{ flex: 1 }}
+                              >
+                                <Input
+                                  placeholder='item'
+                                  style={{ marginRight: 10 }}
+                                />
                               </Form.Item>
                               <CloseOutlined
                                 onClick={() => {
                                   subOpt.remove(subField.name);
                                 }}
                               />
-                            </Space>
+                            </div>
                           ))}
                           <Button
                             type='dashed'

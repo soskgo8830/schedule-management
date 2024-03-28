@@ -41,28 +41,36 @@
   ],
   "schedules": [
     {
-      "id": "5819",
-      "title": "1",
-      "start": "2024-03-14 11:38:31",
-      "end": "2024-03-15 16:34:38",
-      "categoryId": "ca2",
-      "contents": "1"
-    },
-    {
-      "id": "a8ab",
-      "title": "2",
-      "start": "2024-03-01 00:00:00",
-      "end": "2024-03-07 23:59:59",
-      "categoryId": "ca1",
-      "contents": "gjgj"
-    },
-    {
-      "id": "b4c7",
-      "title": "22",
-      "start": "2024-03-07 22:39:52",
-      "end": "2024-03-15 22:39:54",
+      "id": "330f",
+      "title": "테스트",
+      "start": "2024-03-13 20:54:59",
+      "end": "2024-03-28 10:48:08",
       "categoryId": "ca4",
-      "contents": "22222"
+      "contents": "테스트테스트\n허허 테스트!",
+      "checkList": [
+        {
+          "checkCategory": "할일1",
+          "item": [
+            {
+              "isCheck": true,
+              "item": "할일1-1"
+            },
+            {
+              "isCheck": false,
+              "item": "할일1-2"
+            }
+          ]
+        },
+        {
+          "checkCategory": "할일2",
+          "item": [
+            {
+              "isCheck": false,
+              "item": "할일2-1"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
