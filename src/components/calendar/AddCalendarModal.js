@@ -11,7 +11,8 @@ import {
 } from 'antd';
 import moment from 'moment/moment';
 import { CloseOutlined } from '@ant-design/icons';
-const { TextArea } = Input;
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 const { RangePicker } = DatePicker;
 const { Option } = Select;
 
@@ -78,7 +79,7 @@ const AddCalendarModal = ({
   return (
     <Modal
       title='Add Calendar'
-      open={isModalOpen}
+      visible={isModalOpen} // open 속성이 아닌 visible로 수정
       onCancel={handleCancel}
       footer={null}
     >
@@ -126,7 +127,21 @@ const AddCalendarModal = ({
             },
           ]}
         >
-          <TextArea rows={10} />
+          <ReactQuill
+            modules={{
+              toolbar: [
+                ['bold', 'italic', 'underline', 'strike'],
+                ['blockquote', 'code-block', 'image'],
+                [{ list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
+                [{ script: 'sub' }, { script: 'super' }],
+                [{ indent: '-1' }, { indent: '+1' }],
+                [{ header: [1, 2, 3, 4, 5, 6, false] }],
+                [{ color: [] }, { background: [] }],
+                [{ font: [] }],
+                [{ align: [] }],
+              ],
+            }}
+          />
         </Form.Item>
 
         <div className='form-input-header'>Check List</div>
