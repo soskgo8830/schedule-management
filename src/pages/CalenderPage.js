@@ -18,9 +18,7 @@ const CalendarPage = () => {
     try {
       const [categoryResponse, calendarResponse] = await Promise.all([
         get('categorys'),
-        get(
-          `schedules?title=${searchObj.title}&start=${searchObj.start}&end=${searchObj.end}`
-        ),
+        get(`schedules?title=${searchObj.title}`),
       ]);
 
       const categoryMap = categoryResponse.reduce((map, category) => {

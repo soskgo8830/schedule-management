@@ -1,11 +1,9 @@
 import React from 'react';
-import { Form, DatePicker, Input, Button, Flex } from 'antd';
+import { Form, Input, Button, Flex } from 'antd';
 import styled from 'styled-components';
-import moment from 'moment/moment';
 import { useDispatch } from 'react-redux';
 import { changeSeach } from '../../store/modules/calendar';
 import { SearchOutlined, ReloadOutlined } from '@ant-design/icons';
-const { RangePicker } = DatePicker;
 
 const SearchWrapper = styled.div`
   border-top: 2px solid #f0f0f0;
@@ -19,15 +17,11 @@ const SearchCalendar = () => {
   const dispatch = useDispatch();
 
   const onFinish = async (values) => {
-    const { title, rangeDate } = values;
-    const startRangeDate = rangeDate ? moment(rangeDate[0].$d) : '';
-    const endRangeDate = rangeDate ? moment(rangeDate[1].$d) : '';
+    const { title } = values;
 
     dispatch(
       changeSeach({
         title: title || '',
-        start: startRangeDate ? startRangeDate.format('YYYY-MM-DD') : '',
-        end: endRangeDate ? endRangeDate.format('YYYY-MM-DD') : '',
       })
     );
   };
@@ -37,8 +31,6 @@ const SearchCalendar = () => {
     dispatch(
       changeSeach({
         title: '',
-        start: '',
-        end: '',
       })
     );
   };
@@ -59,10 +51,6 @@ const SearchCalendar = () => {
         <Form.Item name='title'>
           <Input />
         </Form.Item>
-        <div className='form-input-header'>Date</div>
-        <Form.Item name='rangeDate'>
-          <RangePicker style={{ width: '100%' }} />
-        </Form.Item>
         <Flex justify={'flex-end'}>
           <Form.Item>
             <Button
@@ -74,22 +62,17 @@ const SearchCalendar = () => {
                 border: 0,
                 marginRight: '0.5rem',
               }}
-            >
-              Search
-            </Button>
+            ></Button>
+            <Button
+              icon={<ReloadOutlined />}
+              onClick={resetSearch}
+              style={{
+                backgroundColor: '#2f3249',
+                color: '#ffffff',
+                border: 0,
+              }}
+            ></Button>
           </Form.Item>
-
-          <Button
-            icon={<ReloadOutlined />}
-            onClick={resetSearch}
-            style={{
-              backgroundColor: '#2f3249',
-              color: '#ffffff',
-              border: 0,
-            }}
-          >
-            Reset
-          </Button>
         </Flex>
       </Form>
     </SearchWrapper>

@@ -1,9 +1,13 @@
 import React from 'react';
 import Checkbox from '../common/CheckBox';
+import { changeCategories } from '../../store/modules/calendar';
+import { useDispatch } from 'react-redux';
 
 const Filters = ({ categories }) => {
+  const dispatch = useDispatch();
+
   const onCheckboxChange = (values) => {
-    // console.log(values);
+    dispatch(changeCategories(values));
   };
 
   return (

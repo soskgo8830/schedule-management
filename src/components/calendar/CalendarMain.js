@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import moment from 'moment/moment';
+import { useSelector } from 'react-redux';
 
 const CalendarMain = ({ categories, calendarList }) => {
   const headerToolbar = {
@@ -11,6 +12,19 @@ const CalendarMain = ({ categories, calendarList }) => {
     center: 'title',
     right: 'dayGridMonth,listWeek',
   };
+
+  const [calendarData, setCalendarData] = useState([]);
+
+  const changeCategoriesArray = useSelector(
+    ({ calendar }) => calendar.changeCategoriesArray
+  );
+
+  useEffect(() => {
+    const filteredEvents = calendarList.filter((event) =>
+      changeCategoriesArray.includes(event.categoryId)
+    );
+    setCalendarData(filteredEvents);
+  }, [calendarList, changeCategoriesArray]);
 
   return (
     <div style={{ width: '100%', color: '#2f3249' }} className='padding-lg'>
@@ -20,8 +34,8 @@ const CalendarMain = ({ categories, calendarList }) => {
         initialView={'dayGridMonth'}
         weekends={true}
         eventContent={renderEventContent}
-        headerToolbar={headerToolbar} // 커스텀 헤더 설정
-        events={calendarList}
+        headerToolbar={headerToolbar}
+        events={calendarData}
         height={'90vh'}
       />
     </div>
@@ -35,8 +49,10 @@ function renderEventContent(eventInfo) {
   const startDate = moment(start).format('YYYY-MM-DD');
   const endDate = moment(end).format('YYYY-MM-DD');
 
+  const clickList = (t) => {};
+
   return (
-    <>
+    <div>
       {startDate === endDate ? (
         <span className='today-dot' style={{ background: backgroundColor }} />
       ) : (
@@ -50,13 +66,13 @@ function renderEventContent(eventInfo) {
         }}
       >
         {startDate === endDate ? (
-          <div>
+          <div onClick={clickList}>
             <div>{title}</div>
             <div>{moment(start).format('HH:mm:ss')}</div>
             <div>{moment(end).format('HH:mm:ss')}</div>
           </div>
         ) : (
-          <div>
+          <div onClick={clickList}>
             <div>{title}</div>
             <div>
               {moment(start).format('YYYY-MM-DD HH:mm:ss')} ~{' '}
@@ -65,7 +81,7 @@ function renderEventContent(eventInfo) {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 }
 
