@@ -41,32 +41,23 @@
   ],
   "schedules": [
     {
-      "id": "330f",
+      "id": "0632",
       "title": "테스트",
-      "start": "2024-03-13 20:54:59",
-      "end": "2024-03-28 10:48:08",
+      "start": "2024-04-15 00:00:00",
+      "end": "2024-04-17 18:00:00",
       "categoryId": "ca4",
-      "contents": "테스트테스트\n허허 테스트!",
+      "contents": "<p>테스트으~!</p>",
       "checkList": [
         {
-          "checkCategory": "할일1",
+          "checkCategory": "체크리스트",
           "item": [
             {
-              "isCheck": true,
-              "item": "할일1-1"
+              "isCheck": false,
+              "item": "체크1"
             },
             {
               "isCheck": false,
-              "item": "할일1-2"
-            }
-          ]
-        },
-        {
-          "checkCategory": "할일2",
-          "item": [
-            {
-              "isCheck": false,
-              "item": "할일2-1"
+              "item": "체크2"
             }
           ]
         }

@@ -67,6 +67,14 @@
 /* ant End */
 
 @media (max-width: 1024px) {
+  .login-left {
+    display: none;
+  }
+  .login-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    height: 100%;
+  }
   .menu {
     display: none;
   }
