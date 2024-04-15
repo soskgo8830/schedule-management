@@ -4,12 +4,15 @@ import AddCalendarButton from '../components/calendar/AddCalendarButton';
 import Filters from '../components/calendar/Filters';
 import SearchCalendar from '../components/calendar/SearchCalendar';
 import AddCalendarModal from '../components/calendar/AddCalendarModal';
+import EditCalendarModal from '../components/calendar/EditCalendarModal';
 import { get, post } from '../api/index';
 import { Flex } from 'antd';
 import { useSelector } from 'react-redux';
 
 const CalendarPage = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [initEditData, setInitEditData] = useState({});
   const [categories, setCategories] = useState([]);
   const [calendarList, setCalendarList] = useState([]);
   const searchObj = useSelector(({ calendar }) => calendar.searchObj);
@@ -54,8 +57,16 @@ const CalendarPage = () => {
     fetchData();
   }, [fetchData]);
 
-  const openModal = useCallback(() => {
-    setIsModalOpen(true);
+  const openModal = useCallback((status) => {
+    if (status === 'add') {
+      setIsAddModalOpen(true);
+    } else {
+      setIsEditModalOpen(true);
+    }
+  }, []);
+
+  const onInitEditData = useCallback((data) => {
+    setInitEditData(data);
   }, []);
 
   const handleAddCalendarFinish = useCallback(
@@ -63,9 +74,22 @@ const CalendarPage = () => {
       try {
         await post('schedules', addCalendarData);
         fetchData();
-        setIsModalOpen(false);
+        setIsAddModalOpen(false);
       } catch (error) {
         console.error('Error adding schedules:', error);
+      }
+    },
+    [fetchData]
+  );
+
+  const handleEditCalendarFinish = useCallback(
+    async (editCalendarData) => {
+      try {
+        // await post('schedules', editCalendarData);
+        fetchData();
+        setIsEditModalOpen(false);
+      } catch (error) {
+        console.error('Error editing schedules:', error);
       }
     },
     [fetchData]
@@ -95,13 +119,24 @@ const CalendarPage = () => {
           </div>
         </Flex>
       </div>
-      <CalendarMain categories={categories} calendarList={calendarList} />
+      <CalendarMain
+        calendarList={calendarList}
+        onEditButtonClick={openModal}
+        onInitEditData={onInitEditData}
+      />
       <AddCalendarModal
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
+        isModalOpen={isAddModalOpen}
+        setIsModalOpen={setIsAddModalOpen}
         handleAddCalendarFinish={handleAddCalendarFinish}
         categories={categories}
       />
+      <EditCalendarModal
+        isModalOpen={isEditModalOpen}
+        setIsModalOpen={setIsEditModalOpen}
+        handleEditCalendarFinish={handleEditCalendarFinish}
+        categories={categories}
+        initEditData={initEditData}
+      ></EditCalendarModal>
     </Flex>
   );
 };

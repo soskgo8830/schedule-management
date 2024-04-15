@@ -6,7 +6,7 @@ import listPlugin from '@fullcalendar/list';
 import moment from 'moment/moment';
 import { useSelector } from 'react-redux';
 
-const CalendarMain = ({ categories, calendarList }) => {
+const CalendarMain = ({ calendarList, onEditButtonClick, onInitEditData }) => {
   const headerToolbar = {
     left: 'prev,next today',
     center: 'title',
@@ -26,6 +26,25 @@ const CalendarMain = ({ categories, calendarList }) => {
     setCalendarData(filteredEvents);
   }, [calendarList, changeCategoriesArray]);
 
+  const handleEventClick = (calData) => {
+    const { id, title, start, end } = calData.event;
+    const { categoryId, contents, checkList } =
+      calData.event._def.extendedProps;
+
+    let initData = {
+      id: id || null,
+      title: title || '',
+      start: start || '',
+      end: end || '',
+      categoryId: categoryId || '',
+      contents: contents || '',
+      checkList: checkList || [],
+    };
+
+    onEditButtonClick('edit');
+    onInitEditData(initData);
+  };
+
   return (
     <div style={{ width: '100%', color: '#2f3249' }} className='padding-lg'>
       <FullCalendar
@@ -37,6 +56,7 @@ const CalendarMain = ({ categories, calendarList }) => {
         headerToolbar={headerToolbar}
         events={calendarData}
         height={'90vh'}
+        eventClick={(calData) => handleEventClick(calData)}
       />
     </div>
   );
@@ -48,8 +68,6 @@ function renderEventContent(eventInfo) {
 
   const startDate = moment(start).format('YYYY-MM-DD');
   const endDate = moment(end).format('YYYY-MM-DD');
-
-  const clickList = (t) => {};
 
   return (
     <div>
@@ -66,13 +84,13 @@ function renderEventContent(eventInfo) {
         }}
       >
         {startDate === endDate ? (
-          <div onClick={clickList}>
+          <div>
             <div>{title}</div>
             <div>{moment(start).format('HH:mm:ss')}</div>
             <div>{moment(end).format('HH:mm:ss')}</div>
           </div>
         ) : (
-          <div onClick={clickList}>
+          <div>
             <div>{title}</div>
             <div>
               {moment(start).format('YYYY-MM-DD HH:mm:ss')} ~{' '}

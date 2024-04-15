@@ -3,7 +3,7 @@ import { Button } from 'antd';
 
 const AddCalendarButton = ({ onAddButtonClick }) => {
   const handleClick = () => {
-    onAddButtonClick();
+    onAddButtonClick('add');
   };
 
   return (

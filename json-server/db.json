@@ -52,7 +52,7 @@
           "checkCategory": "체크리스트",
           "item": [
             {
-              "isCheck": false,
+              "isCheck": true,
               "item": "체크1"
             },
             {

@@ -16,15 +16,17 @@ import 'react-quill/dist/quill.snow.css';
 const { RangePicker } = DatePicker;
 const { Option } = Select;
 
-const AddCalendarModal = ({
+const EditCalendarModal = ({
   isModalOpen,
   setIsModalOpen,
-  handleAddCalendarFinish,
+  handleEditCalendarFinish,
   categories,
+  initEditData,
 }) => {
   const [form] = Form.useForm();
 
-  const [addCalendarData, setAddCalendarData] = useState({
+  const [editCalendarData, setEditCalendarData] = useState({
+    id: null,
     title: '',
     start: '',
     end: '',
@@ -33,9 +35,14 @@ const AddCalendarModal = ({
     checkList: [],
   });
 
+  const onDeleteCalendar = () => {
+    console.log(initEditData.id);
+  };
+
   const handleCancel = async () => {
     form.resetFields();
-    setAddCalendarData({
+    setEditCalendarData({
+      id: null,
       title: '',
       start: '',
       end: '',
@@ -47,9 +54,10 @@ const AddCalendarModal = ({
   };
 
   const onFinish = async () => {
-    handleAddCalendarFinish(addCalendarData);
+    handleEditCalendarFinish(editCalendarData);
     form.resetFields();
-    setAddCalendarData({
+    setEditCalendarData({
+      id: null,
       title: '',
       start: '',
       end: '',
@@ -60,36 +68,35 @@ const AddCalendarModal = ({
   };
 
   const onValuesChange = (changedValues, allValues) => {
-    const { title, contents, categorys, rangeDate, checkList } = allValues;
-    const startRangeDate = rangeDate ? moment(rangeDate[0].$d) : '';
-    const endRangeDate = rangeDate ? moment(rangeDate[1].$d) : '';
-
-    const newData = {
-      title: title || '',
-      start: startRangeDate ? startRangeDate.format('YYYY-MM-DD HH:mm:ss') : '',
-      end: endRangeDate ? endRangeDate.format('YYYY-MM-DD HH:mm:ss') : '',
-      categoryId: categorys || '',
-      contents: contents || '',
-      checkList: checkList || [],
-    };
-
-    setAddCalendarData(newData);
+    // const { title, contents, categorys, rangeDate, checkList } = allValues;
+    // const startRangeDate = rangeDate ? moment(rangeDate[0].$d) : '';
+    // const endRangeDate = rangeDate ? moment(rangeDate[1].$d) : '';
+    // const newData = {
+    //   title: title || '',
+    //   start: startRangeDate ? startRangeDate.format('YYYY-MM-DD HH:mm:ss') : '',
+    //   end: endRangeDate ? endRangeDate.format('YYYY-MM-DD HH:mm:ss') : '',
+    //   categoryId: categorys || '',
+    //   contents: contents || '',
+    //   checkList: checkList || [],
+    // };
+    // setEditCalendarData(newData);
   };
 
   return (
     <Modal
-      title='Add Calendar'
+      title='Edit Calendar'
       open={isModalOpen}
       onCancel={handleCancel}
       footer={null}
     >
       <Form
         form={form}
-        name='addCalendar'
+        name='editCalendar'
         layout='vertical'
         onFinish={onFinish}
         autoComplete='off'
         onValuesChange={onValuesChange}
+        initialValues={initEditData}
       >
         <div className='form-input-header'>Title</div>
         <Form.Item
@@ -114,7 +121,14 @@ const AddCalendarModal = ({
             },
           ]}
         >
-          <RangePicker showTime style={{ width: '100%' }} />
+          <RangePicker
+            showTime
+            style={{ width: '100%' }}
+            defaultValue={[
+              moment(initEditData.start),
+              moment(initEditData.end),
+            ]}
+          />
         </Form.Item>
 
         <div className='form-input-header'>Contents</div>
@@ -246,6 +260,7 @@ const AddCalendarModal = ({
         <div className='form-input-header'>categorys</div>
         <Form.Item
           name='categorys'
+          initialValue={initEditData.categoryId}
           rules={[
             {
               required: true,
@@ -275,7 +290,18 @@ const AddCalendarModal = ({
               border: 0,
             }}
           >
-            Save
+            Edit
+          </Button>
+          <Button
+            onClick={onDeleteCalendar}
+            style={{
+              backgroundColor: '#ea5456',
+              color: '#ffffff',
+              border: 0,
+              marginLeft: '0.5rem',
+            }}
+          >
+            Delete
           </Button>
         </Form.Item>
       </Form>
@@ -283,4 +309,4 @@ const AddCalendarModal = ({
   );
 };
 
-export default AddCalendarModal;
+export default EditCalendarModal;
