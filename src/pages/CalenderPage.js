@@ -5,7 +5,7 @@ import Filters from '../components/calendar/Filters';
 import SearchCalendar from '../components/calendar/SearchCalendar';
 import AddCalendarModal from '../components/calendar/AddCalendarModal';
 import EditCalendarModal from '../components/calendar/EditCalendarModal';
-import { get, post } from '../api/index';
+import { get, post, remove } from '../api/index';
 import { Flex } from 'antd';
 import { useSelector } from 'react-redux';
 
@@ -95,6 +95,19 @@ const CalendarPage = () => {
     [fetchData]
   );
 
+  const handleDeleteCalendarFinish = useCallback(
+    async (deletCalendarId) => {
+      try {
+        await remove('schedules', deletCalendarId);
+        fetchData();
+        setIsEditModalOpen(false);
+      } catch (error) {
+        console.error('Error delete schedules:', error);
+      }
+    },
+    [fetchData]
+  );
+
   return (
     <Flex
       justify='space-between'
@@ -134,6 +147,7 @@ const CalendarPage = () => {
         isModalOpen={isEditModalOpen}
         setIsModalOpen={setIsEditModalOpen}
         handleEditCalendarFinish={handleEditCalendarFinish}
+        handleDeleteCalendarFinish={handleDeleteCalendarFinish}
         categories={categories}
         initEditData={initEditData}
       ></EditCalendarModal>

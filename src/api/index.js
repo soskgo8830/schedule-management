@@ -25,9 +25,9 @@ export const post = async (url, data = {}) => {
 };
 
 // DELETE 요청 함수
-export const remove = async (url) => {
+export const remove = async (url, id) => {
   try {
-    const response = await axios.delete(`${baseURL}/${url}`);
+    const response = await axios.delete(`${baseURL}/${url}/${id}`);
     return response.data;
   } catch (error) {
     console.error('DELETE request error:', error);

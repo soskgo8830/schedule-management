@@ -39,29 +39,5 @@
       "subMemos": []
     }
   ],
-  "schedules": [
-    {
-      "id": "0632",
-      "title": "테스트",
-      "start": "2024-04-15 00:00:00",
-      "end": "2024-04-17 18:00:00",
-      "categoryId": "ca4",
-      "contents": "<p>테스트으~!</p>",
-      "checkList": [
-        {
-          "checkCategory": "체크리스트",
-          "item": [
-            {
-              "isCheck": true,
-              "item": "체크1"
-            },
-            {
-              "isCheck": false,
-              "item": "체크2"
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  "schedules": []
 }

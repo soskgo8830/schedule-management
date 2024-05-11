@@ -20,6 +20,7 @@ const EditCalendarModal = ({
   isModalOpen,
   setIsModalOpen,
   handleEditCalendarFinish,
+  handleDeleteCalendarFinish,
   categories,
   initEditData,
 }) => {
@@ -36,7 +37,7 @@ const EditCalendarModal = ({
   });
 
   const onDeleteCalendar = () => {
-    console.log(initEditData.id);
+    handleDeleteCalendarFinish(initEditData.id);
   };
 
   const handleCancel = async () => {
@@ -112,18 +113,11 @@ const EditCalendarModal = ({
         </Form.Item>
 
         <div className='form-input-header'>Range Date</div>
-        <Form.Item
-          name='rangeDate'
-          rules={[
-            {
-              required: true,
-              message: 'Please input Range Date.',
-            },
-          ]}
-        >
+        <Form.Item name='rangeDate'>
           <RangePicker
             showTime
             style={{ width: '100%' }}
+            disabled
             defaultValue={[
               moment(initEditData.start),
               moment(initEditData.end),
