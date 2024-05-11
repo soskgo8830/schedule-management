@@ -7,7 +7,6 @@ import AddCalendarModal from '../components/calendar/AddCalendarModal';
 import EditCalendarModal from '../components/calendar/EditCalendarModal';
 import { get, post, remove } from '../api/index';
 import { Flex } from 'antd';
-import { useSelector } from 'react-redux';
 
 const CalendarPage = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -15,13 +14,12 @@ const CalendarPage = () => {
   const [initEditData, setInitEditData] = useState({});
   const [categories, setCategories] = useState([]);
   const [calendarList, setCalendarList] = useState([]);
-  const searchObj = useSelector(({ calendar }) => calendar.searchObj);
 
   const fetchData = useCallback(async () => {
     try {
       const [categoryResponse, calendarResponse] = await Promise.all([
         get('categorys'),
-        get(`schedules?title=${searchObj.title}`),
+        get(`schedules`),
       ]);
 
       const categoryMap = categoryResponse.reduce((map, category) => {
@@ -51,7 +49,7 @@ const CalendarPage = () => {
     } catch (error) {
       console.error('Error fetching data:', error);
     }
-  }, [searchObj]);
+  }, []);
 
   useEffect(() => {
     fetchData();

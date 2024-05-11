@@ -3,9 +3,9 @@ import axios from 'axios';
 const baseURL = 'http://localhost:3001';
 
 // GET 요청 함수
-export const get = async (url, params = {}) => {
+export const get = async (url) => {
   try {
-    const response = await axios.get(`${baseURL}/${url}`, { params });
+    const response = await axios.get(`${baseURL}/${url}`);
     return response.data;
   } catch (error) {
     console.error('GET request error:', error);

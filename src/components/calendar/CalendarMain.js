@@ -18,13 +18,18 @@ const CalendarMain = ({ calendarList, onEditButtonClick, onInitEditData }) => {
   const changeCategoriesArray = useSelector(
     ({ calendar }) => calendar.changeCategoriesArray
   );
+  const searchObj = useSelector(({ calendar }) => calendar.searchObj);
 
   useEffect(() => {
-    const filteredEvents = calendarList.filter((event) =>
-      changeCategoriesArray.includes(event.categoryId)
-    );
-    setCalendarData(filteredEvents);
-  }, [calendarList, changeCategoriesArray]);
+    const filterCategoriesArray = calendarList.filter((obj) => {
+      return changeCategoriesArray.includes(obj.categoryId);
+    });
+    const filterTitleArray = filterCategoriesArray.filter((obj) => {
+      return obj.title.includes(searchObj.title);
+    });
+
+    setCalendarData(filterTitleArray);
+  }, [calendarList, changeCategoriesArray, searchObj]);
 
   const handleEventClick = (calData) => {
     const { id, title, start, end } = calData.event;
