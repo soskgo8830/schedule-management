@@ -42,19 +42,15 @@
   "schedules": [
     {
       "id": "ba83",
-      "title": "d",
+      "title": "dsaaf",
       "start": "2024-05-01 01:47:16",
       "end": "2024-05-18 01:43:18",
-      "categoryId": "ca4",
-      "contents": "<p>dd</p>",
+      "categoryId": "ca3",
+      "contents": "<p>dddddㅇㅇㅇㅇ?</p>",
       "checkList": [
         {
           "checkCategory": "1",
           "item": [
-            {
-              "isCheck": true,
-              "item": "2"
-            },
             {
               "isCheck": false,
               "item": "3"

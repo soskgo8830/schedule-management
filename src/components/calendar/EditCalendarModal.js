@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Form,
   Input,
@@ -25,8 +25,17 @@ const EditCalendarModal = ({
   initEditData,
 }) => {
   const [form] = Form.useForm();
-
   const [editCalendarData, setEditCalendarData] = useState({});
+
+  useEffect(() => {
+    form.setFieldsValue({
+      title: initEditData.title,
+      rangeDate: [moment(initEditData.start), moment(initEditData.end)],
+      contents: initEditData.contents,
+      categorys: initEditData.categoryId,
+      checkList: initEditData.checkList,
+    });
+  }, [form, initEditData]);
 
   const onDeleteCalendar = () => {
     handleDeleteCalendarFinish(initEditData.id);
@@ -72,7 +81,6 @@ const EditCalendarModal = ({
         onFinish={onFinish}
         autoComplete='off'
         onValuesChange={onValuesChange}
-        initialValues={initEditData}
       >
         <div className='form-input-header'>Title</div>
         <Form.Item
@@ -83,22 +91,13 @@ const EditCalendarModal = ({
               message: 'Please enter your title.',
             },
           ]}
-          defaultValue={[moment(initEditData.start), moment(initEditData.end)]}
         >
           <Input />
         </Form.Item>
 
         <div className='form-input-header'>Range Date</div>
         <Form.Item name='rangeDate'>
-          <RangePicker
-            showTime
-            style={{ width: '100%' }}
-            disabled
-            defaultValue={[
-              moment(initEditData.start),
-              moment(initEditData.end),
-            ]}
-          />
+          <RangePicker showTime style={{ width: '100%' }} disabled />
         </Form.Item>
 
         <div className='form-input-header'>Contents</div>
@@ -230,7 +229,6 @@ const EditCalendarModal = ({
         <div className='form-input-header'>categorys</div>
         <Form.Item
           name='categorys'
-          initialValue={initEditData.categoryId}
           rules={[
             {
               required: true,
