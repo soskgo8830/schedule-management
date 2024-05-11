@@ -26,15 +26,7 @@ const EditCalendarModal = ({
 }) => {
   const [form] = Form.useForm();
 
-  const [editCalendarData, setEditCalendarData] = useState({
-    id: null,
-    title: '',
-    start: '',
-    end: '',
-    categoryId: '',
-    contents: '',
-    checkList: [],
-  });
+  const [editCalendarData, setEditCalendarData] = useState({});
 
   const onDeleteCalendar = () => {
     handleDeleteCalendarFinish(initEditData.id);
@@ -42,45 +34,28 @@ const EditCalendarModal = ({
 
   const handleCancel = async () => {
     form.resetFields();
-    setEditCalendarData({
-      id: null,
-      title: '',
-      start: '',
-      end: '',
-      categoryId: '',
-      contents: '',
-      checkList: [],
-    });
+    setEditCalendarData({});
     setIsModalOpen(false);
   };
 
   const onFinish = async () => {
-    handleEditCalendarFinish(editCalendarData);
     form.resetFields();
-    setEditCalendarData({
-      id: null,
-      title: '',
-      start: '',
-      end: '',
-      categoryId: '',
-      contents: '',
-      checkList: [],
-    });
+    setEditCalendarData({});
+    handleEditCalendarFinish(editCalendarData);
   };
 
   const onValuesChange = (changedValues, allValues) => {
-    // const { title, contents, categorys, rangeDate, checkList } = allValues;
-    // const startRangeDate = rangeDate ? moment(rangeDate[0].$d) : '';
-    // const endRangeDate = rangeDate ? moment(rangeDate[1].$d) : '';
-    // const newData = {
-    //   title: title || '',
-    //   start: startRangeDate ? startRangeDate.format('YYYY-MM-DD HH:mm:ss') : '',
-    //   end: endRangeDate ? endRangeDate.format('YYYY-MM-DD HH:mm:ss') : '',
-    //   categoryId: categorys || '',
-    //   contents: contents || '',
-    //   checkList: checkList || [],
-    // };
-    // setEditCalendarData(newData);
+    const { title, contents, categorys, checkList } = allValues;
+    const newData = {
+      id: initEditData.id,
+      title: title,
+      start: moment(initEditData.start).format('YYYY-MM-DD HH:mm:ss'),
+      end: moment(initEditData.end).format('YYYY-MM-DD HH:mm:ss'),
+      categoryId: categorys,
+      contents: contents,
+      checkList: checkList,
+    };
+    setEditCalendarData(newData);
   };
 
   return (
@@ -108,6 +83,7 @@ const EditCalendarModal = ({
               message: 'Please enter your title.',
             },
           ]}
+          defaultValue={[moment(initEditData.start), moment(initEditData.end)]}
         >
           <Input />
         </Form.Item>

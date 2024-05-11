@@ -5,7 +5,7 @@ import Filters from '../components/calendar/Filters';
 import SearchCalendar from '../components/calendar/SearchCalendar';
 import AddCalendarModal from '../components/calendar/AddCalendarModal';
 import EditCalendarModal from '../components/calendar/EditCalendarModal';
-import { get, post, remove } from '../api/index';
+import { get, post, remove, update } from '../api/index';
 import { Flex } from 'antd';
 
 const CalendarPage = () => {
@@ -58,7 +58,7 @@ const CalendarPage = () => {
   const openModal = useCallback((status) => {
     if (status === 'add') {
       setIsAddModalOpen(true);
-    } else {
+    } else if (status === 'edit') {
       setIsEditModalOpen(true);
     }
   }, []);
@@ -83,7 +83,7 @@ const CalendarPage = () => {
   const handleEditCalendarFinish = useCallback(
     async (editCalendarData) => {
       try {
-        // await post('schedules', editCalendarData);
+        await update('schedules', editCalendarData.id, editCalendarData);
         fetchData();
         setIsEditModalOpen(false);
       } catch (error) {

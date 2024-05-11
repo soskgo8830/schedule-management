@@ -36,9 +36,9 @@ export const remove = async (url, id) => {
 };
 
 // PUT 요청 함수
-export const update = async (url, data = {}) => {
+export const update = async (url, id, data = {}) => {
   try {
-    const response = await axios.put(`${baseURL}/${url}`, data);
+    const response = await axios.put(`${baseURL}/${url}/${id}`, data);
     return response.data;
   } catch (error) {
     console.error('PUT request error:', error);

@@ -35,28 +35,14 @@ const AddCalendarModal = ({
 
   const handleCancel = async () => {
     form.resetFields();
-    setAddCalendarData({
-      title: '',
-      start: '',
-      end: '',
-      categoryId: '',
-      contents: '',
-      checkList: [],
-    });
+    setAddCalendarData({});
     setIsModalOpen(false);
   };
 
   const onFinish = async () => {
     handleAddCalendarFinish(addCalendarData);
     form.resetFields();
-    setAddCalendarData({
-      title: '',
-      start: '',
-      end: '',
-      categoryId: '',
-      contents: '',
-      checkList: [],
-    });
+    setAddCalendarData({});
   };
 
   const onValuesChange = (changedValues, allValues) => {
