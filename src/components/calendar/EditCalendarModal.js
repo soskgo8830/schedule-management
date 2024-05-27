@@ -27,9 +27,16 @@ const EditCalendarModal = ({
   const [form] = Form.useForm();
   const [editCalendarData, setEditCalendarData] = useState({});
 
+  const completionOption = [
+    { id: 'incomplete', name: 'Incomplete' },
+    { id: 'partiallyCompleted', name: 'PartiallyComplete' },
+    { id: 'complete', name: 'Complete' },
+  ];
+
   useEffect(() => {
     form.setFieldsValue({
       title: initEditData.title,
+      completion: initEditData.completion,
       rangeDate: [moment(initEditData.start), moment(initEditData.end)],
       contents: initEditData.contents,
       categorys: initEditData.categoryId,
@@ -54,10 +61,11 @@ const EditCalendarModal = ({
   };
 
   const onValuesChange = (changedValues, allValues) => {
-    const { title, contents, categorys, checkList } = allValues;
+    const { title, completion, contents, categorys, checkList } = allValues;
     const newData = {
       id: initEditData.id,
       title: title,
+      completion: completion,
       start: moment(initEditData.start).format('YYYY-MM-DD HH:mm:ss'),
       end: moment(initEditData.end).format('YYYY-MM-DD HH:mm:ss'),
       categoryId: categorys,
@@ -93,6 +101,25 @@ const EditCalendarModal = ({
           ]}
         >
           <Input />
+        </Form.Item>
+
+        <div className='form-input-header'>Completion</div>
+        <Form.Item
+          name='completion'
+          rules={[
+            {
+              required: true,
+              message: 'Please enter your completion.',
+            },
+          ]}
+        >
+          <Select style={{ width: '100%' }}>
+            {completionOption.map((completionOption) => (
+              <Option key={completionOption.id} value={completionOption.id}>
+                {completionOption.name}
+              </Option>
+            ))}
+          </Select>
         </Form.Item>
 
         <div className='form-input-header'>Range Date</div>

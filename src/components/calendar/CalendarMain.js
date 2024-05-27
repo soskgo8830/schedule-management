@@ -33,12 +33,13 @@ const CalendarMain = ({ calendarList, onEditButtonClick, onInitEditData }) => {
 
   const handleEventClick = (calData) => {
     const { id, title, start, end } = calData.event;
-    const { categoryId, contents, checkList } =
+    const { completion, categoryId, contents, checkList } =
       calData.event._def.extendedProps;
 
     let initData = {
       id: id || null,
       title: title || '',
+      completion: completion || '',
       start: start || '',
       end: end || '',
       categoryId: categoryId || '',

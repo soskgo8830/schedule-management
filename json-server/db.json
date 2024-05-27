@@ -43,6 +43,7 @@
     {
       "id": "ba83",
       "title": "일정",
+      "completion": "partiallyCompleted",
       "start": "2024-05-01 01:47:16",
       "end": "2024-05-18 01:43:18",
       "categoryId": "ca4",
@@ -66,10 +67,21 @@
     {
       "id": "623b",
       "title": "일정2",
+      "completion": "partiallyCompleted",
       "start": "2024-05-27 21:00:13",
       "end": "2024-05-29 21:00:18",
       "categoryId": "ca3",
       "contents": "<p>일정2ㅇ</p>",
+      "checkList": []
+    },
+    {
+      "id": "048c",
+      "title": "1",
+      "completion": "incomplete",
+      "start": "2024-05-27 21:46:27",
+      "end": "2024-05-28 21:46:29",
+      "categoryId": "ca2",
+      "contents": "<p>dsad</p>",
       "checkList": []
     }
   ]
