@@ -42,22 +42,35 @@
   "schedules": [
     {
       "id": "ba83",
-      "title": "dsaaf",
+      "title": "일정",
       "start": "2024-05-01 01:47:16",
       "end": "2024-05-18 01:43:18",
-      "categoryId": "ca3",
-      "contents": "<p>dddddㅇㅇㅇㅇ?</p>",
+      "categoryId": "ca4",
+      "contents": "<p>일정?</p>",
       "checkList": [
         {
-          "checkCategory": "1",
+          "checkCategory": "체크리스트1",
           "item": [
             {
-              "isCheck": false,
-              "item": "3"
+              "isCheck": true,
+              "item": "체크1"
+            },
+            {
+              "isCheck": true,
+              "item": "체크2"
             }
           ]
         }
       ]
+    },
+    {
+      "id": "623b",
+      "title": "일정2",
+      "start": "2024-05-27 21:00:13",
+      "end": "2024-05-29 21:00:18",
+      "categoryId": "ca3",
+      "contents": "<p>일정2ㅇ</p>",
+      "checkList": []
     }
   ]
 }

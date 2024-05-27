@@ -5,6 +5,7 @@ import Filters from '../components/calendar/Filters';
 import SearchCalendar from '../components/calendar/SearchCalendar';
 import AddCalendarModal from '../components/calendar/AddCalendarModal';
 import EditCalendarModal from '../components/calendar/EditCalendarModal';
+import AlertModal from '../components/common/AlertModal';
 import { get, post, remove, update } from '../api/index';
 import { Flex } from 'antd';
 
@@ -14,6 +15,9 @@ const CalendarPage = () => {
   const [initEditData, setInitEditData] = useState({});
   const [categories, setCategories] = useState([]);
   const [calendarList, setCalendarList] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false); // alert open 여부
+  const [alertType, setAlertType] = useState('error'); // alert 타입
+  const [alertMessage, setAlertMessage] = useState(''); // alert 메시지
 
   const fetchData = useCallback(async () => {
     try {
@@ -47,7 +51,7 @@ const CalendarPage = () => {
       setCategories(categoryResponse);
       setCalendarList(addColorCalendarList);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      showAlert('error', 'An error occurred while searching.');
     }
   }, []);
 
@@ -71,10 +75,11 @@ const CalendarPage = () => {
     async (addCalendarData) => {
       try {
         await post('schedules', addCalendarData);
-        fetchData();
         setIsAddModalOpen(false);
+        showAlert('success', 'New schedule registration has been successful.');
+        fetchData();
       } catch (error) {
-        console.error('Error adding schedules:', error);
+        showAlert('error', 'An error occurred during schedule registration.');
       }
     },
     [fetchData]
@@ -84,10 +89,11 @@ const CalendarPage = () => {
     async (editCalendarData) => {
       try {
         await update('schedules', editCalendarData.id, editCalendarData);
-        fetchData();
         setIsEditModalOpen(false);
+        showAlert('success', 'The schedule modification was successful.');
+        fetchData();
       } catch (error) {
-        console.error('Error editing schedules:', error);
+        showAlert('error', 'An error occurred while modifying the schedule.');
       }
     },
     [fetchData]
@@ -97,14 +103,25 @@ const CalendarPage = () => {
     async (deletCalendarId) => {
       try {
         await remove('schedules', deletCalendarId);
-        fetchData();
         setIsEditModalOpen(false);
+        showAlert('success', 'Failed to delete schedule.');
+        fetchData();
       } catch (error) {
-        console.error('Error delete schedules:', error);
+        showAlert('error', 'An error occurred while deleting the schedule.');
       }
     },
     [fetchData]
   );
+
+  const showAlert = (type, message) => {
+    setAlertType(type);
+    setAlertMessage(message);
+    setModalVisible(true);
+  };
+
+  const handleClose = () => {
+    setModalVisible(false);
+  };
 
   return (
     <Flex
@@ -149,6 +166,12 @@ const CalendarPage = () => {
         categories={categories}
         initEditData={initEditData}
       ></EditCalendarModal>
+      <AlertModal
+        visible={modalVisible}
+        type={alertType}
+        message={alertMessage}
+        onClose={handleClose}
+      />
     </Flex>
   );
 };
