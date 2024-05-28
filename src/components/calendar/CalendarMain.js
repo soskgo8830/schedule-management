@@ -12,9 +12,7 @@ const CalendarMain = ({ calendarList, onEditButtonClick, onInitEditData }) => {
     center: 'title',
     right: 'dayGridMonth,listWeek',
   };
-
   const [calendarData, setCalendarData] = useState([]);
-
   const changeCategoriesArray = useSelector(
     ({ calendar }) => calendar.changeCategoriesArray
   );
@@ -24,11 +22,19 @@ const CalendarMain = ({ calendarList, onEditButtonClick, onInitEditData }) => {
     const filterCategoriesArray = calendarList.filter((obj) => {
       return changeCategoriesArray.includes(obj.categoryId);
     });
+
     const filterTitleArray = filterCategoriesArray.filter((obj) => {
       return obj.title.includes(searchObj.title);
     });
 
-    setCalendarData(filterTitleArray);
+    if (searchObj.completion !== 'all') {
+      const filterCompletion = filterTitleArray.filter((obj) => {
+        return obj.completion === searchObj.completion;
+      });
+      setCalendarData(filterCompletion);
+    } else {
+      setCalendarData(filterTitleArray);
+    }
   }, [calendarList, changeCategoriesArray, searchObj]);
 
   const handleEventClick = (calData) => {
@@ -90,13 +96,13 @@ function renderEventContent(eventInfo) {
         }}
       >
         {startDate === endDate ? (
-          <div>
-            <div>{title}</div>
+          <div style={{ background: backgroundColor }}>
+            <div>{title} !</div>
             <div>{moment(start).format('HH:mm:ss')}</div>
             <div>{moment(end).format('HH:mm:ss')}</div>
           </div>
         ) : (
-          <div>
+          <div style={{ background: backgroundColor }}>
             <div>{title}</div>
             <div>
               {moment(start).format('YYYY-MM-DD HH:mm:ss')} ~{' '}

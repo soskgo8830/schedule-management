@@ -1,9 +1,10 @@
 import React from 'react';
-import { Form, Input, Button, Flex } from 'antd';
+import { Form, Input, Button, Flex, Select } from 'antd';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { changeSeach } from '../../store/modules/calendar';
 import { SearchOutlined, ReloadOutlined } from '@ant-design/icons';
+const { Option } = Select;
 
 const SearchWrapper = styled.div`
   border-top: 2px solid #f0f0f0;
@@ -14,14 +15,22 @@ const SearchWrapper = styled.div`
 `;
 
 const SearchCalendar = () => {
+  const completionOption = [
+    { id: 'all', name: 'All' },
+    { id: 'incomplete', name: 'Incomplete' },
+    { id: 'partiallyCompleted', name: 'PartiallyComplete' },
+    { id: 'complete', name: 'Complete' },
+  ];
+
   const dispatch = useDispatch();
 
   const onFinish = async (values) => {
-    const { title } = values;
+    const { title, completion } = values;
 
     dispatch(
       changeSeach({
         title: title || '',
+        completion: completion || 'all',
       })
     );
   };
@@ -31,6 +40,7 @@ const SearchCalendar = () => {
     dispatch(
       changeSeach({
         title: '',
+        completion: 'all',
       })
     );
   };
@@ -51,6 +61,26 @@ const SearchCalendar = () => {
         <Form.Item name='title'>
           <Input />
         </Form.Item>
+
+        <div className='form-input-header'>Completion</div>
+        <Form.Item
+          name='completion'
+          rules={[
+            {
+              required: false,
+              message: 'Please enter your completion.',
+            },
+          ]}
+        >
+          <Select style={{ width: '100%' }} defaultValue={'all'}>
+            {completionOption.map((completionOption) => (
+              <Option key={completionOption.id} value={completionOption.id}>
+                {completionOption.name}
+              </Option>
+            ))}
+          </Select>
+        </Form.Item>
+
         <Flex justify={'flex-end'}>
           <Form.Item>
             <Button

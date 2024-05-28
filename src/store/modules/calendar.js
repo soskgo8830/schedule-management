@@ -21,6 +21,7 @@ export const changeCategories = (changeCategoriesArray) => {
 const initialState = {
   searchObj: {
     title: '',
+    completion: 'all',
   },
   changeCategoriesArray: [],
 };
