@@ -1,76 +1,29 @@
-import React, { useState } from 'react';
-import { List, Input, Button, Dropdown, Menu } from 'antd';
-import { MoreOutlined } from '@ant-design/icons';
-const { TextArea } = Input;
+import React, { useState, useEffect } from 'react';
+import MemoMain from '../components/memo/MemoMain';
+import { get } from '../api';
+import { useParams } from 'react-router';
 
 const NotionPage = () => {
-  const [data, setData] = useState([
-    {
-      key: '1',
-      content: '1 row content',
-    },
-    {
-      key: '2',
-      content: '2 row content',
-    },
-    {
-      key: '3',
-      content: '3 row content',
-    },
-  ]);
+  const [memoData, setMemoData] = useState([]);
+  const params = useParams();
 
-  const handleDeleteClick = (key) => {
-    setData(data.filter((item) => item.key !== key));
+  useEffect(() => {
+    if (params.id) {
+      getMemoData(params.id);
+    }
+  }, [params]);
+
+  const getMemoData = async (id) => {
+    try {
+      const response = await get(`memos/${id}`);
+      setMemoData(response);
+      console.log(memoData);
+    } catch (error) {
+      console.error('데이터 가져오는 중 오류 발생:', error);
+    }
   };
 
-  const handleInputChange = (e, key) => {
-    const { value } = e.target;
-    setData((prevData) =>
-      prevData.map((item) =>
-        item.key === key ? { ...item, content: value } : item
-      )
-    );
-  };
-
-  const menu = (key) => (
-    <Menu>
-      <Menu.Item onClick={() => handleDeleteClick(key)}>Delete</Menu.Item>
-    </Menu>
-  );
-
-  return (
-    <div
-      style={{
-        width: '100%',
-        minHeight: '90vh',
-        backgroundColor: 'white',
-        borderRadius: '5px',
-        padding: '1rem',
-        boxShadow:
-          'rgba(17, 17, 26, 0.1) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px',
-      }}
-    >
-      <List
-        dataSource={data}
-        renderItem={(item) => (
-          <List.Item key={item.key}>
-            <Dropdown overlay={menu(item.key)}>
-              <Button icon={<MoreOutlined />} />
-            </Dropdown>
-            <TextArea
-              autoSize
-              value={item.content}
-              onChange={(e) => handleInputChange(e, item.key)}
-              style={{
-                marginLeft: '10px',
-                border: 0,
-              }}
-            />
-          </List.Item>
-        )}
-      />
-    </div>
-  );
+  return <MemoMain memoData={memoData} />;
 };
 
 export default NotionPage;

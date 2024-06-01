@@ -67,7 +67,7 @@ const CalendarMain = ({ calendarList, onEditButtonClick, onInitEditData }) => {
         eventContent={renderEventContent}
         headerToolbar={headerToolbar}
         events={calendarData}
-        height={'90vh'}
+        height={'80vh'}
         eventClick={(calData) => handleEventClick(calData)}
       />
     </div>
