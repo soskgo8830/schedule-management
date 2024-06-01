@@ -90,24 +90,33 @@ function renderEventContent(eventInfo) {
       )}
       <div
         style={{
-          fontSize: '0.9rem',
-          margin: '0.3rem',
-          minWidth: '10px',
+          fontSize: '0.8rem',
+          color: 'white',
         }}
       >
         {startDate === endDate ? (
-          <div style={{ background: backgroundColor }}>
-            <div>{title} !</div>
+          <div
+            style={{
+              background: backgroundColor,
+              padding: 2,
+              borderRadius: 3,
+            }}
+          >
+            <div>{title}</div>
             <div>{moment(start).format('HH:mm:ss')}</div>
             <div>{moment(end).format('HH:mm:ss')}</div>
           </div>
         ) : (
-          <div style={{ background: backgroundColor }}>
+          <div
+            style={{
+              background: backgroundColor,
+              padding: 2,
+              borderRadius: 3,
+            }}
+          >
             <div>{title}</div>
-            <div>
-              {moment(start).format('YYYY-MM-DD HH:mm:ss')} ~{' '}
-              {moment(end).format('YYYY-MM-DD HH:mm:ss')}
-            </div>
+            <div>{moment(start).format('YYYY-MM-DD HH:mm:ss')}</div>
+            <div>{moment(end).format('YYYY-MM-DD HH:mm:ss')}</div>
           </div>
         )}
       </div>

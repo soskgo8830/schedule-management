@@ -9,7 +9,8 @@ import {
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import AddMemoModal from '../components/memo/AddMemoModal';
-import { get } from '../api/index';
+import { get, post } from '../api/index';
+import AlertModal from '../components/common/AlertModal';
 
 const { SubMenu } = Menu;
 
@@ -18,6 +19,9 @@ const SidebarLayout = () => {
   const [selectedMenu, setSelectedMenu] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [memoList, setMemoList] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false); // alert open 여부
+  const [alertType, setAlertType] = useState('error'); // alert 타입
+  const [alertMessage, setAlertMessage] = useState(''); // alert 메시지
 
   useEffect(() => {
     const storedMenu = localStorage.getItem('selectedMenu');
@@ -53,8 +57,25 @@ const SidebarLayout = () => {
     }
   };
 
-  const handleAddMemoFinish = async () => {
-    getMemoList();
+  const handleAddMemoFinish = async (addMemosData) => {
+    try {
+      await post('memos', addMemosData);
+      setIsModalOpen(false);
+      showAlert('success', 'Memo registration was successful.');
+      getMemoList();
+    } catch (error) {
+      showAlert('error', 'An error occurred while registering a note.');
+    }
+  };
+
+  const showAlert = (type, message) => {
+    setAlertType(type);
+    setAlertMessage(message);
+    setModalVisible(true);
+  };
+
+  const handleClose = () => {
+    setModalVisible(false);
   };
 
   return (
@@ -111,6 +132,12 @@ const SidebarLayout = () => {
         setIsModalOpen={setIsModalOpen}
         handleAddMemoFinish={handleAddMemoFinish}
       ></AddMemoModal>
+      <AlertModal
+        visible={modalVisible}
+        type={alertType}
+        message={alertMessage}
+        onClose={handleClose}
+      />
     </Menu>
   );
 };

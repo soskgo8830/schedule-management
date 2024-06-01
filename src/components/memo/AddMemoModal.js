@@ -1,29 +1,26 @@
 import React from 'react';
 import { Form, Input, Modal, Button } from 'antd';
-import { post } from '../../api/index';
+import moment from 'moment/moment';
 
 const AddMemoModal = ({ isModalOpen, setIsModalOpen, handleAddMemoFinish }) => {
+  const [form] = Form.useForm();
+
   const handleCancel = () => {
+    form.resetFields();
     setIsModalOpen(false);
   };
 
   const onFinish = async (values) => {
     const { title } = values;
+    const nowDt = moment(new Date());
+    const memosData = {
+      title: title || '',
+      createDt: nowDt.format('YYYY-MM-DD HH:mm:ss'),
+      subMemos: [],
+    };
 
-    try {
-      await post('memos', {
-        title,
-        createDt: new Date(),
-        contents: '',
-        sortNumber: 0,
-        subMemos: [],
-      });
-
-      setIsModalOpen(false);
-      handleAddMemoFinish(true);
-    } catch (error) {
-      console.error('Error adding user:', error);
-    }
+    handleAddMemoFinish(memosData);
+    form.resetFields();
   };
 
   return (
@@ -34,7 +31,8 @@ const AddMemoModal = ({ isModalOpen, setIsModalOpen, handleAddMemoFinish }) => {
       footer={null}
     >
       <Form
-        name='basic'
+        form={form}
+        name='addMemo'
         layout='vertical'
         onFinish={onFinish}
         autoComplete='off'

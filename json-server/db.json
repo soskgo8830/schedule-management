@@ -31,39 +31,13 @@
   ],
   "memos": [
     {
-      "id": "14c1",
+      "id": "b92d",
       "title": "테스트 메모",
-      "createDt": "2024-03-04T14:09:30.978Z",
-      "contents": "",
-      "sortNumber": 0,
+      "createDt": "2024-06-01 21:30:42",
       "subMemos": []
     }
   ],
   "schedules": [
-    {
-      "id": "ba83",
-      "title": "일정1",
-      "completion": "partiallyCompleted",
-      "start": "2024-05-01 01:47:16",
-      "end": "2024-05-18 01:43:18",
-      "categoryId": "ca4",
-      "contents": "<p>일정1 내용</p>",
-      "checkList": [
-        {
-          "checkCategory": "체크리스트1",
-          "item": [
-            {
-              "isCheck": true,
-              "item": "체크1"
-            },
-            {
-              "isCheck": true,
-              "item": "체크2"
-            }
-          ]
-        }
-      ]
-    },
     {
       "id": "623b",
       "title": "일정2",
@@ -72,16 +46,6 @@
       "end": "2024-05-29 21:00:18",
       "categoryId": "ca3",
       "contents": "<p>일정2내용</p>",
-      "checkList": []
-    },
-    {
-      "id": "048c",
-      "title": "일정3",
-      "completion": "incomplete",
-      "start": "2024-05-27 21:46:27",
-      "end": "2024-05-28 21:46:29",
-      "categoryId": "ca2",
-      "contents": "<p>일정3내용</p>",
       "checkList": []
     },
     {
@@ -120,6 +84,16 @@
           ]
         }
       ]
+    },
+    {
+      "id": "c5a9",
+      "title": "테스트일정",
+      "completion": "partiallyCompleted",
+      "start": "2024-06-12 00:00:00",
+      "end": "2024-06-16 23:59:59",
+      "categoryId": "ca2",
+      "contents": "<p>테스트!</p>",
+      "checkList": []
     }
   ]
 }
