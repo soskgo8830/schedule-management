@@ -16,7 +16,6 @@ const AddMemoModal = ({ isModalOpen, setIsModalOpen, handleAddMemoFinish }) => {
     const memosData = {
       title: title || '',
       createDt: nowDt.format('YYYY-MM-DD HH:mm:ss'),
-      subMemos: [],
     };
 
     handleAddMemoFinish(memosData);

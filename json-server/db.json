@@ -31,16 +31,14 @@
   ],
   "memos": [
     {
-      "id": "b92d",
       "title": "테스트 메모1",
       "createDt": "2024-06-01 21:30:42",
-      "subMemos": []
+      "id": "b92d"
     },
     {
-      "id": "3afe",
       "title": "테스트 메모2",
       "createDt": "2024-06-01 21:55:59",
-      "subMemos": []
+      "id": "3afe"
     }
   ],
   "schedules": [

@@ -17,7 +17,6 @@ const NotionPage = () => {
     try {
       const response = await get(`memos/${id}`);
       setMemoData(response);
-      console.log(memoData);
     } catch (error) {
       console.error('데이터 가져오는 중 오류 발생:', error);
     }

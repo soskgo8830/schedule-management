@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import AddMemoModal from '../components/memo/AddMemoModal';
 import { get, post } from '../api/index';
 import AlertModal from '../components/common/AlertModal';
+import { useSelector } from 'react-redux';
 
 const { SubMenu } = Menu;
 
@@ -77,6 +78,18 @@ const SidebarLayout = () => {
   const handleClose = () => {
     setModalVisible(false);
   };
+
+  const changeMemoType = useSelector(({ memo }) => memo.changeMemoType);
+
+  useEffect(() => {
+    const changeType = changeMemoType.changeType;
+    if (changeType !== '') {
+      if (changeType === 'updateMemoTitle') {
+        getMemoList();
+      } else if (changeType === 'deleteMemo') {
+      }
+    }
+  }, [changeMemoType]);
 
   return (
     <Menu
