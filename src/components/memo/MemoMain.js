@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Empty, Flex, Pagination } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 
-const MemoMain = ({ memoData }) => {
-  const [memoDetails, setMemoDetails] = useState([]);
+const MemoMain = ({ memoDetailData, onAddMemoButtonClick }) => {
+  const handleClick = () => {
+    onAddMemoButtonClick('add');
+  };
 
-  const onAddDetailMemo = () => {};
+  const [totalCnt, setTotalCnt] = useState(0);
+
+  useEffect(() => {
+    setTotalCnt(memoDetailData.length);
+  }, [memoDetailData]);
 
   return (
     <div>
@@ -16,9 +22,22 @@ const MemoMain = ({ memoData }) => {
           padding: '15px',
         }}
       >
-        {memoDetails.length !== 0 ? (
+        {memoDetailData.length !== 0 ? (
           <div>
-            <div></div>
+            {memoDetailData.map((list) => (
+              <div
+                style={{
+                  color: 'black',
+                  marginBottom: 30,
+                  padding: 15,
+                  borderRadius: '5px  ',
+                  border: '1px solid #2f3249',
+                }}
+              >
+                <div>{list.title}</div>
+                <div dangerouslySetInnerHTML={{ __html: list.content }} />
+              </div>
+            ))}
             <Flex justify={'center'}>
               <Button
                 style={{
@@ -27,7 +46,7 @@ const MemoMain = ({ memoData }) => {
                   border: 0,
                 }}
                 icon={<PlusOutlined></PlusOutlined>}
-                onClick={onAddDetailMemo}
+                onClick={handleClick}
               >
                 Add Memo
               </Button>
@@ -47,7 +66,7 @@ const MemoMain = ({ memoData }) => {
                   border: 0,
                 }}
                 icon={<PlusOutlined></PlusOutlined>}
-                onClick={onAddDetailMemo}
+                onClick={handleClick}
               >
                 Add Memo
               </Button>
@@ -56,7 +75,7 @@ const MemoMain = ({ memoData }) => {
         )}
       </div>
       <Flex justify={'center'}>
-        <Pagination defaultCurrent={6} total={40} />
+        <Pagination defaultCurrent={6} total={totalCnt} />
       </Flex>
     </div>
   );

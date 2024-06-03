@@ -1,18 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import MemoTitle from '../components/memo/MemoTitle';
 import MemoMain from '../components/memo/MemoMain';
-import { get } from '../api';
+import AddDetailMemoModal from '../components/memo/AddDetailMemoModal';
+import AlertModal from '../components/common/AlertModal';
+import { get, post } from '../api';
 import { useParams } from 'react-router';
 
 const NotionPage = () => {
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [memoData, setMemoData] = useState([]);
+  const [memoDetailData, setMemoDetailData] = useState([]);
+  const [memoId, setMemoId] = useState('');
+  const [modalVisible, setModalVisible] = useState(false); // alert open 여부
+  const [alertType, setAlertType] = useState('error'); // alert 타입
+  const [alertMessage, setAlertMessage] = useState(''); // alert 메시지
+
   const params = useParams();
 
   useEffect(() => {
     if (params.id) {
-      getMemoData(params.id);
+      setMemoId(params.id);
+      getMemoData(memoId);
+      getDetailMemoData();
     }
-  }, [params]);
+  }, [memoId, params]);
 
   const getMemoData = async (id) => {
     try {
@@ -21,6 +32,43 @@ const NotionPage = () => {
     } catch (error) {
       console.error('데이터 가져오는 중 오류 발생:', error);
     }
+  };
+
+  const getDetailMemoData = async (id) => {
+    try {
+      const response = await get(`memoDetails`);
+      setMemoDetailData(response);
+    } catch (error) {
+      console.error('데이터 가져오는 중 오류 발생:', error);
+    }
+  };
+
+  const handleAddDetailMemoFinish = useCallback(async (addMemoDetailData) => {
+    try {
+      await post('memoDetails', addMemoDetailData);
+      setIsAddModalOpen(false);
+      showAlert('success', 'New memo registration has been successful.');
+      getDetailMemoData();
+    } catch (error) {
+      showAlert('error', 'An error occurred during memo registration.');
+    }
+  }, []);
+
+  const openModal = useCallback((status) => {
+    if (status === 'add') {
+      setIsAddModalOpen(true);
+    } else if (status === 'edit') {
+    }
+  }, []);
+
+  const showAlert = (type, message) => {
+    setAlertType(type);
+    setAlertMessage(message);
+    setModalVisible(true);
+  };
+
+  const handleClose = () => {
+    setModalVisible(false);
   };
 
   return (
@@ -35,7 +83,22 @@ const NotionPage = () => {
       }}
     >
       <MemoTitle memoData={memoData}></MemoTitle>
-      <MemoMain />;
+      <MemoMain
+        onAddMemoButtonClick={openModal}
+        memoDetailData={memoDetailData}
+      ></MemoMain>
+      <AddDetailMemoModal
+        isModalOpen={isAddModalOpen}
+        memoId={memoId}
+        setIsModalOpen={setIsAddModalOpen}
+        handleAddDetailMemoFinish={handleAddDetailMemoFinish}
+      ></AddDetailMemoModal>
+      <AlertModal
+        visible={modalVisible}
+        type={alertType}
+        message={alertMessage}
+        onClose={handleClose}
+      />
     </div>
   );
 };
