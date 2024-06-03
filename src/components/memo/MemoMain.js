@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Input, Button } from 'antd';
-import { DeleteOutlined } from '@ant-design/icons';
-import { Flex } from 'antd';
+import { Input, Button, Empty } from 'antd';
+import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
+import { Flex, Pagination } from 'antd';
 import { update } from '../../api';
 import { useDispatch } from 'react-redux';
 import { changeMemoType } from '../../store/modules/memo';
@@ -9,6 +9,7 @@ import { changeMemoType } from '../../store/modules/memo';
 const MemoMain = ({ memoData }) => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState('');
+  const [memoDetails, setMemoDetails] = useState([]);
 
   const onDeleteMemo = () => {
     dispatch(
@@ -17,6 +18,8 @@ const MemoMain = ({ memoData }) => {
       })
     );
   };
+
+  const onAddDetailMemo = () => {};
 
   useEffect(() => {
     setTitle(memoData.title);
@@ -85,13 +88,53 @@ const MemoMain = ({ memoData }) => {
       </Flex>
       <div
         style={{
-          height: 'calc(85vh - 70px)', // 전체 높이에서 상단 padding과 헤더 높이를 뺀 높이로 설정
+          height: 'calc(85vh - 100px)', // 전체 높이에서 상단 padding과 헤더 높이를 뺀 높이로 설정
           overflow: 'auto',
           padding: '15px',
         }}
       >
-        메인 내용들
+        {memoDetails.length !== 0 ? (
+          <div>
+            <div></div>
+            <Flex justify={'center'}>
+              <Button
+                style={{
+                  backgroundColor: '#2f3249',
+                  color: '#ffffff',
+                  border: 0,
+                }}
+                icon={<PlusOutlined></PlusOutlined>}
+                onClick={onAddDetailMemo}
+              >
+                Add Memo
+              </Button>
+            </Flex>
+          </div>
+        ) : (
+          <Flex
+            style={{ width: '100%', height: '100%' }}
+            justify={'center'}
+            align={'center'}
+          >
+            <Empty>
+              <Button
+                style={{
+                  backgroundColor: '#2f3249',
+                  color: '#ffffff',
+                  border: 0,
+                }}
+                icon={<PlusOutlined></PlusOutlined>}
+                onClick={onAddDetailMemo}
+              >
+                Add Memo
+              </Button>
+            </Empty>
+          </Flex>
+        )}
       </div>
+      <Flex justify={'center'}>
+        <Pagination defaultCurrent={6} total={40} />
+      </Flex>
     </div>
   );
 };
