@@ -3,7 +3,7 @@ import MemoTitle from '../components/memo/MemoTitle';
 import MemoMain from '../components/memo/MemoMain';
 import AddDetailMemoModal from '../components/memo/AddDetailMemoModal';
 import AlertModal from '../components/common/AlertModal';
-import { get, post } from '../api';
+import { get, post, remove } from '../api';
 import { useParams } from 'react-router';
 
 const NotionPage = () => {
@@ -58,10 +58,10 @@ const NotionPage = () => {
     try {
       await post('memoDetails', addMemoDetailData);
       setIsAddModalOpen(false);
-      showAlert('success', 'New memo registration has been successful.');
+      showAlert('success', 'The memo has been successfully deleted.');
       getDetailMemoData();
     } catch (error) {
-      showAlert('error', 'An error occurred during memo registration.');
+      showAlert('error', 'An error occurred while deleting a memo.');
     }
   }, []);
 
@@ -82,6 +82,16 @@ const NotionPage = () => {
     setModalVisible(false);
   };
 
+  const handleDeleteMemo = useCallback(async (deleteId) => {
+    try {
+      await remove('memoDetails', deleteId);
+      showAlert('success', 'The schedule modification was successful.');
+      getDetailMemoData();
+    } catch (error) {
+      showAlert('error', 'An error occurred while modifying the schedule.');
+    }
+  }, []);
+
   return (
     <div
       style={{
@@ -98,7 +108,10 @@ const NotionPage = () => {
         onAddMemoButtonClick={openModal}
         setSearchTitle={setSearchTitle}
       ></MemoTitle>
-      <MemoMain memoDetailData={filteredMemoDetailData}></MemoMain>
+      <MemoMain
+        memoDetailData={filteredMemoDetailData}
+        handleDeleteMemo={handleDeleteMemo}
+      ></MemoMain>
       <AddDetailMemoModal
         isModalOpen={isAddModalOpen}
         memoId={memoId}

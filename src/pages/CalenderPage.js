@@ -104,10 +104,10 @@ const CalendarPage = () => {
       try {
         await remove('schedules', deletCalendarId);
         setIsEditModalOpen(false);
-        showAlert('success', 'Failed to delete schedule.');
+        showAlert('success', 'The schedule has been successfully deleted.');
         fetchData();
       } catch (error) {
-        showAlert('error', 'An error occurred while deleting the schedule.');
+        showAlert('error', 'An error occurred while deleting a schedule.');
       }
     },
     [fetchData]

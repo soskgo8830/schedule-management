@@ -3,13 +3,14 @@ import { Button, Empty, Flex, Collapse } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 const { Panel } = Collapse;
 
-const MemoMain = ({ memoDetailData, onAddMemoButtonClick }) => {
+const MemoMain = ({ memoDetailData, handleDeleteMemo }) => {
   const handleEdit = (editItem, event) => {
     event.stopPropagation();
   };
 
   const handleDelete = (deleteId, event) => {
     event.stopPropagation();
+    handleDeleteMemo(deleteId);
   };
 
   const renderHeader = (item) => (
