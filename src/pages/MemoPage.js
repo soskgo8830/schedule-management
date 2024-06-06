@@ -10,20 +10,30 @@ const NotionPage = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [memoData, setMemoData] = useState([]);
   const [memoDetailData, setMemoDetailData] = useState([]);
+  const [filteredMemoDetailData, setFilteredMemoDetailData] = useState([]);
   const [memoId, setMemoId] = useState('');
   const [modalVisible, setModalVisible] = useState(false); // alert open 여부
   const [alertType, setAlertType] = useState('error'); // alert 타입
   const [alertMessage, setAlertMessage] = useState(''); // alert 메시지
+  const [searchTitle, setSearchTitle] = useState('');
 
   const params = useParams();
 
   useEffect(() => {
     if (params.id) {
       setMemoId(params.id);
-      getMemoData(memoId);
+      getMemoData(params.id);
       getDetailMemoData();
     }
-  }, [memoId, params]);
+  }, [params]);
+
+  useEffect(() => {
+    const filterMemoDetailData = memoDetailData.filter((obj) => {
+      return obj.title.includes(searchTitle);
+    });
+
+    setFilteredMemoDetailData(filterMemoDetailData);
+  }, [memoDetailData, searchTitle]);
 
   const getMemoData = async (id) => {
     try {
@@ -34,10 +44,11 @@ const NotionPage = () => {
     }
   };
 
-  const getDetailMemoData = async (id) => {
+  const getDetailMemoData = async () => {
     try {
-      const response = await get(`memoDetails`);
+      const response = await get('memoDetails');
       setMemoDetailData(response);
+      setFilteredMemoDetailData(response);
     } catch (error) {
       console.error('데이터 가져오는 중 오류 발생:', error);
     }
@@ -85,8 +96,9 @@ const NotionPage = () => {
       <MemoTitle
         memoData={memoData}
         onAddMemoButtonClick={openModal}
+        setSearchTitle={setSearchTitle}
       ></MemoTitle>
-      <MemoMain memoDetailData={memoDetailData}></MemoMain>
+      <MemoMain memoDetailData={filteredMemoDetailData}></MemoMain>
       <AddDetailMemoModal
         isModalOpen={isAddModalOpen}
         memoId={memoId}

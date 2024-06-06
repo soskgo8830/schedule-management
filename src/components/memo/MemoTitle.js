@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Input, Flex, Button } from 'antd';
+import { Input, Flex, Button, Space } from 'antd';
 import { update } from '../../api';
 import { useDispatch } from 'react-redux';
 import { changeMemoType } from '../../store/modules/memo';
-import { PlusOutlined } from '@ant-design/icons';
+import { PlusOutlined, SearchOutlined } from '@ant-design/icons';
 
-const MemoTitle = ({ memoData, onAddMemoButtonClick }) => {
+const MemoTitle = ({ memoData, onAddMemoButtonClick, setSearchTitle }) => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState('');
 
@@ -59,19 +59,34 @@ const MemoTitle = ({ memoData, onAddMemoButtonClick }) => {
           }}
         />
       </Flex>
-      <Flex justify={'center'}>
+      <Flex
+        style={{
+          paddingLeft: 10,
+          paddingRight: 10,
+          padding: 10,
+          borderTopLeftRadius: '5px',
+          borderTopRightRadius: '5px',
+        }}
+      >
         <Button
           style={{
             backgroundColor: '#2f3249',
             color: '#ffffff',
             border: 0,
-            margin: '10px',
+            marginRight: '10px',
           }}
           icon={<PlusOutlined></PlusOutlined>}
           onClick={handleClick}
         >
           Add Memo
         </Button>
+        <Space.Compact>
+          <Input
+            addonBefore={<SearchOutlined />}
+            placeholder='Search'
+            onChange={(e) => setSearchTitle(e.target.value)}
+          />
+        </Space.Compact>
       </Flex>
     </div>
   );
