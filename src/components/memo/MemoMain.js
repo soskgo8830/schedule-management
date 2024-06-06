@@ -1,49 +1,46 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Empty, Flex, Pagination } from 'antd';
+import React from 'react';
+import { Button, Empty, Flex, Collapse } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+const { Panel } = Collapse;
 
 const MemoMain = ({ memoDetailData, onAddMemoButtonClick }) => {
   const handleClick = () => {
     onAddMemoButtonClick('add');
   };
 
-  const [totalCnt, setTotalCnt] = useState(0);
-
-  useEffect(() => {
-    setTotalCnt(memoDetailData.length);
-  }, [memoDetailData]);
+  const onChange = (key) => {
+    console.log(key);
+  };
 
   return (
     <div>
       <div
         style={{
-          height: 'calc(85vh - 100px)', // 전체 높이에서 상단 padding과 헤더 높이를 뺀 높이로 설정
+          height: 'calc(85vh - 70px)', // 전체 높이에서 상단 padding과 헤더 높이를 뺀 높이로 설정
           overflow: 'auto',
-          padding: '15px',
+          padding: '10px',
         }}
       >
         {memoDetailData.length !== 0 ? (
           <div>
-            {memoDetailData.map((list) => (
-              <div
-                style={{
-                  color: 'black',
-                  marginBottom: 30,
-                  padding: 15,
-                  borderRadius: '5px  ',
-                  border: '1px solid #2f3249',
-                }}
-              >
-                <div>{list.title}</div>
-                <div dangerouslySetInnerHTML={{ __html: list.content }} />
-              </div>
-            ))}
+            <Collapse
+              defaultActiveKey={[memoDetailData[0].id]}
+              onChange={onChange}
+            >
+              {memoDetailData.map((item, index) => (
+                <Panel header={item.title} key={item.id}>
+                  <div dangerouslySetInnerHTML={{ __html: item.content }} />
+                </Panel>
+              ))}
+            </Collapse>
+
             <Flex justify={'center'}>
               <Button
                 style={{
                   backgroundColor: '#2f3249',
                   color: '#ffffff',
                   border: 0,
+                  margin: '10px',
                 }}
                 icon={<PlusOutlined></PlusOutlined>}
                 onClick={handleClick}
@@ -64,6 +61,7 @@ const MemoMain = ({ memoDetailData, onAddMemoButtonClick }) => {
                   backgroundColor: '#2f3249',
                   color: '#ffffff',
                   border: 0,
+                  margin: '10px',
                 }}
                 icon={<PlusOutlined></PlusOutlined>}
                 onClick={handleClick}
@@ -74,9 +72,6 @@ const MemoMain = ({ memoDetailData, onAddMemoButtonClick }) => {
           </Flex>
         )}
       </div>
-      <Flex justify={'center'}>
-        <Pagination defaultCurrent={6} total={totalCnt} />
-      </Flex>
     </div>
   );
 };
