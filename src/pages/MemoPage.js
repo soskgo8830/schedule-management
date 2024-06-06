@@ -82,11 +82,11 @@ const NotionPage = () => {
           'rgba(17, 17, 26, 0.1) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px',
       }}
     >
-      <MemoTitle memoData={memoData}></MemoTitle>
-      <MemoMain
+      <MemoTitle
+        memoData={memoData}
         onAddMemoButtonClick={openModal}
-        memoDetailData={memoDetailData}
-      ></MemoMain>
+      ></MemoTitle>
+      <MemoMain memoDetailData={memoDetailData}></MemoMain>
       <AddDetailMemoModal
         isModalOpen={isAddModalOpen}
         memoId={memoId}
