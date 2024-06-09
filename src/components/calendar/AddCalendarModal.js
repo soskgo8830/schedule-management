@@ -8,6 +8,7 @@ import {
   Select,
   Card,
   Checkbox,
+  Slider,
 } from 'antd';
 import moment from 'moment/moment';
 import { CloseOutlined } from '@ant-design/icons';
@@ -37,6 +38,7 @@ const AddCalendarModal = ({
     end: '',
     categoryId: '',
     contents: '',
+    progress: 0,
     checkList: [],
   });
 
@@ -53,8 +55,15 @@ const AddCalendarModal = ({
   };
 
   const onValuesChange = (changedValues, allValues) => {
-    const { title, completion, contents, categorys, rangeDate, checkList } =
-      allValues;
+    const {
+      title,
+      completion,
+      contents,
+      categorys,
+      rangeDate,
+      checkList,
+      progress,
+    } = allValues;
     const startRangeDate = rangeDate ? moment(rangeDate[0].$d) : '';
     const endRangeDate = rangeDate ? moment(rangeDate[1].$d) : '';
 
@@ -65,6 +74,7 @@ const AddCalendarModal = ({
       end: endRangeDate ? endRangeDate.format('YYYY-MM-DD HH:mm:ss') : '',
       categoryId: categorys || '',
       contents: contents || '',
+      progress: progress || 0,
       checkList: checkList || [],
     };
 
@@ -156,6 +166,11 @@ const AddCalendarModal = ({
               ],
             }}
           />
+        </Form.Item>
+
+        <div className='form-input-header'>Progress</div>
+        <Form.Item name='progress'>
+          <Slider min={0} max={10} />
         </Form.Item>
 
         <div className='form-input-header'>Check List</div>

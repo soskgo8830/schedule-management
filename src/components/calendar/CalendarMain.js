@@ -39,7 +39,7 @@ const CalendarMain = ({ calendarList, onEditButtonClick, onInitEditData }) => {
 
   const handleEventClick = (calData) => {
     const { id, title, start, end } = calData.event;
-    const { completion, categoryId, contents, checkList } =
+    const { completion, categoryId, contents, checkList, progress } =
       calData.event._def.extendedProps;
 
     let initData = {
@@ -50,6 +50,7 @@ const CalendarMain = ({ calendarList, onEditButtonClick, onInitEditData }) => {
       end: end || '',
       categoryId: categoryId || '',
       contents: contents || '',
+      progress: progress || 0,
       checkList: checkList || [],
     };
 
