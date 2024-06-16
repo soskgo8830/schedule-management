@@ -2,12 +2,14 @@ import React, { useState, useEffect, useCallback } from 'react';
 import MemoTitle from '../components/memo/MemoTitle';
 import MemoMain from '../components/memo/MemoMain';
 import AddDetailMemoModal from '../components/memo/AddDetailMemoModal';
+import EditDetailMemoModal from '../components/memo/EditDetailMemoModal';
 import AlertModal from '../components/common/AlertModal';
-import { get, post, remove } from '../api';
+import { get, post, remove, update } from '../api';
 import { useParams } from 'react-router';
 
 const NotionPage = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [memoData, setMemoData] = useState([]);
   const [memoDetailData, setMemoDetailData] = useState([]);
   const [filteredMemoDetailData, setFilteredMemoDetailData] = useState([]);
@@ -16,6 +18,7 @@ const NotionPage = () => {
   const [alertType, setAlertType] = useState('error'); // alert 타입
   const [alertMessage, setAlertMessage] = useState(''); // alert 메시지
   const [searchTitle, setSearchTitle] = useState('');
+  const [initEditData, setInitEditData] = useState({});
 
   const params = useParams();
 
@@ -65,10 +68,22 @@ const NotionPage = () => {
     }
   }, []);
 
+  const handleEditDetailMemoFinish = useCallback(async (editMemoDetailData) => {
+    try {
+      await update('memoDetails', editMemoDetailData.id, editMemoDetailData);
+      setIsEditModalOpen(false);
+      showAlert('success', 'The memo has been successfully deleted.');
+      getDetailMemoData();
+    } catch (error) {
+      showAlert('error', 'An error occurred while deleting a memo.');
+    }
+  }, []);
+
   const openModal = useCallback((status) => {
     if (status === 'add') {
       setIsAddModalOpen(true);
     } else if (status === 'edit') {
+      setIsEditModalOpen(true);
     }
   }, []);
 
@@ -111,6 +126,8 @@ const NotionPage = () => {
       <MemoMain
         memoDetailData={filteredMemoDetailData}
         handleDeleteMemo={handleDeleteMemo}
+        setInitEditData={setInitEditData}
+        onEditMemoButtonClick={openModal}
       ></MemoMain>
       <AddDetailMemoModal
         isModalOpen={isAddModalOpen}
@@ -118,6 +135,12 @@ const NotionPage = () => {
         setIsModalOpen={setIsAddModalOpen}
         handleAddDetailMemoFinish={handleAddDetailMemoFinish}
       ></AddDetailMemoModal>
+      <EditDetailMemoModal
+        isModalOpen={isEditModalOpen}
+        initEditData={initEditData}
+        setIsModalOpen={setIsEditModalOpen}
+        handleEditDetailMemoFinish={handleEditDetailMemoFinish}
+      ></EditDetailMemoModal>
       <AlertModal
         visible={modalVisible}
         type={alertType}

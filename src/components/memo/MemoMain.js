@@ -3,9 +3,16 @@ import { Button, Empty, Flex, Collapse } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 const { Panel } = Collapse;
 
-const MemoMain = ({ memoDetailData, handleDeleteMemo }) => {
+const MemoMain = ({
+  memoDetailData,
+  handleDeleteMemo,
+  setInitEditData,
+  onEditMemoButtonClick,
+}) => {
   const handleEdit = (editItem, event) => {
     event.stopPropagation();
+    setInitEditData(editItem);
+    onEditMemoButtonClick('edit');
   };
 
   const handleDelete = (deleteId, event) => {
@@ -21,7 +28,10 @@ const MemoMain = ({ memoDetailData, handleDeleteMemo }) => {
         alignItems: 'center',
       }}
     >
-      <span>{item.title}</span>
+      <div>
+        <div>{item.title}</div>
+        <div>{item.createDt}</div>
+      </div>
       <div>
         <Button
           style={{
@@ -53,7 +63,7 @@ const MemoMain = ({ memoDetailData, handleDeleteMemo }) => {
       }}
     >
       {memoDetailData.length !== 0 ? (
-        <Collapse defaultActiveKey={[memoDetailData[0].id]}>
+        <Collapse>
           {memoDetailData.map((item, index) => (
             <Panel header={renderHeader(item)} key={item.id}>
               <div dangerouslySetInnerHTML={{ __html: item.content }} />
