@@ -26,7 +26,7 @@ const NotionPage = () => {
     if (params.id) {
       setMemoId(params.id);
       getMemoData(params.id);
-      getDetailMemoData();
+      getDetailMemoData(params.id);
     }
   }, [params]);
 
@@ -47,9 +47,9 @@ const NotionPage = () => {
     }
   };
 
-  const getDetailMemoData = async () => {
+  const getDetailMemoData = async (id) => {
     try {
-      const response = await get('memoDetails');
+      const response = await get(`memoDetails?fKey=${id}`);
       setMemoDetailData(response);
       setFilteredMemoDetailData(response);
     } catch (error) {
@@ -72,10 +72,10 @@ const NotionPage = () => {
     try {
       await update('memoDetails', editMemoDetailData.id, editMemoDetailData);
       setIsEditModalOpen(false);
-      showAlert('success', 'The memo has been successfully deleted.');
+      showAlert('success', 'The memo modification was successful.');
       getDetailMemoData();
     } catch (error) {
-      showAlert('error', 'An error occurred while deleting a memo.');
+      showAlert('error', 'An error occurred while modifying the memo.');
     }
   }, []);
 
